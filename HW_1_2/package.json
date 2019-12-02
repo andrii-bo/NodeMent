@@ -4,8 +4,12 @@
   "description": "hw1_2",
   "main": "task2.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "task2": "nodemon task2.js"
   },
   "author": "me",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "csvtojson": "^2.0.10"
+  }
 }
