@@ -1,0 +1,11 @@
+{
+  "name": "task2",
+  "version": "1.0.0",
+  "description": "hw1_2",
+  "main": "task2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "me",
+  "license": "ISC"
+}
