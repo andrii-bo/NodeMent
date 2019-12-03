@@ -4,9 +4,9 @@
   "description": "homework_1_2",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec babel-node src/index.js",
+    "start": "nodemon --exec babel-node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "index": "nodemon index.js"
+    "index": "nodemon HW_1_2\\index.js"
   },
   "author": "me",
   "license": "ISC",
