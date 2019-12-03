@@ -6,7 +6,10 @@
   "scripts": {
     "start": "nodemon --exec babel-node index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "index": "nodemon HW_1_2\\index.js"
+    "index": "nodemon HW_1_2\\index.js",
+    "babel-node": "babel-node",
+    "build": "NODE_ENV=production babel src --out-dir dist --source-maps inline",
+    "prepublishOnly": "npm run build"
   },
   "author": "me",
   "license": "ISC",
@@ -14,7 +17,9 @@
     "csvtojson": "^2.0.10"
   },
   "devDependencies": {
+    "@babel/cli": "^7.7.4",
     "@babel/core": "^7.7.4",
-    "@babel/node": "^7.7.4"
+    "@babel/node": "^7.7.4",
+    "@babel/preset-env": "^7.7.4"
   }
 }
