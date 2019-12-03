@@ -1,11 +1,11 @@
 {
-  "name": "task1",
+  "name": "homework_1_1",
   "version": "1.0.0",
   "description": "hw1_1",
-  "main": "task1.js",
+  "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "task1": "nodemon task1.js"
+    "index": "nodemon index.js"
   },
   "author": "me",
   "license": "ISC"
