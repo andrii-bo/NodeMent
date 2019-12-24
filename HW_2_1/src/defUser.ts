@@ -9,3 +9,16 @@ export const userSchema = {
     age: Joi.number().integer().min(4).max(130).required(),
     isDeleted: Joi.bool().required()
 };
+
+export interface iUser {
+    id: string;
+    login: string;
+    password: string;
+    age: string;
+    isDeleted: string;
+}
+
+
+export interface iUsers {
+    [id: string]: iUser;
+}

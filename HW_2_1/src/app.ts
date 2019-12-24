@@ -1,10 +1,13 @@
 import * as express from "express";
 import { Routes } from "routes";
+import { iUsers } from "defUser";
+import { UserController } from "controller";
 
 class App {
 
     public app: express.Application = express();
     public routePrv: Routes = new Routes();
+    public userController :UserController;
     
     constructor() {
         this.config();
