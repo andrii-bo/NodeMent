@@ -1,13 +1,10 @@
-import app from 'app';
+import App from "./classApp";
 
-const port = 3000;
+let myApp = new App();
+const PORT = 3000;
 
-app.get('/', (req, res) => {
-  res.send('The sedulous hyena ate the antelope!');
+const server = myApp.app.listen(PORT, () => {
+    console.log("  Press CTRL-C to stop\n");
 });
-app.listen(port, err => {
-  if (err) {
-    return console.error(err);
-  }
-  return console.log(`server is listening on ${port}`);
-});
+
+export default server;

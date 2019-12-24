@@ -1,9 +1,9 @@
 import {Request, Response, NextFunction} from "express";
-import { ContactController } from "controller";
+import { userController } from "./controller";
 
 export class Routes { 
     
-    public contactController: ContactController = new ContactController() 
+    public userController: userController = new userController() 
     
     public routes(app): void {   
         
@@ -25,17 +25,17 @@ export class Routes {
             } else {
                 next();
             }                        
-        }, this.contactController.getContacts)        
+        }, this.userController.addUser)        
 
         // POST endpoint
-        .post(this.contactController.addNewContact);
+        .post(this.userController.addUser);
 
         // Contact detail
         app.route('/contact/:contactId')
         // get specific contact
-        .get(this.contactController.getContactWithID)
-        .put(this.contactController.updateContact)
-        .delete(this.contactController.deleteContact)
+        .get(this.userController.getUsersById)
+        .put(this.userController.updateUser)
+        .delete(this.userController.deleteUser)
 
     }
 }

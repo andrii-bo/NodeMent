@@ -1,15 +1,15 @@
 import * as express from "express";
-import { Routes } from "routes";
-import { iUsers } from "defUser";
-import { UserController } from "controller";
+import { Routes } from "./routes";
+import { userController } from "./controller";
 
-class App {
+export default class App {
 
     public app: express.Application = express();
     public routePrv: Routes = new Routes();
-    public userController :UserController;
+    public userController :userController;
     
     constructor() {
+        this.app
         this.config();
         this.routePrv.routes(this.app);     
     }
@@ -21,4 +21,4 @@ class App {
 
 }
 
-export default new App().app;
+

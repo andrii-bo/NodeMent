@@ -6,9 +6,12 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "tsc",
-    "dev": "ts-node ./server.ts",
-    "start": "nodemon ./dist/server.js",
-    "prod": "npm run build && npm run start"
+    "dev": "ts-node server.ts",
+    "start": "node dist/server.js",    
+    "prod": "npm run build && npm run start",
+    "clean": "rimraf dist",
+    "watch:build": "tsc --watch",
+    "watch:server": "nodemon './dist/index.js' --watch './dist'"
   },
   "author": "Andrii_Bondarenko@epam.com",
   "license": "ISC",
