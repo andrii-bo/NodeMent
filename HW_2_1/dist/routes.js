@@ -12,23 +12,17 @@ class Routes {
                 message: 'GET request successfulll!!!!'
             });
         });
-        // Contact 
-        app.route('/contact')
+        app.route('/user')
             .get((req, res, next) => {
-            // middleware
-            console.log(`Request from: ${req.originalUrl}`);
-            console.log(`Request type: ${req.method}`);
-            if (req.query.key !== '78942ef2c1c98bf10fca09c808d718fa3734703e') {
-                res.status(401).send('You shall not pass!');
-            }
-            else {
-                next();
-            }
+            res.status(200).send({
+                message: `${req.body}`
+            });
+            console.log(`Request type: ${req.body}`);
+            next();
         }, this.userController.addUser)
             // POST endpoint
             .post(this.userController.addUser);
-        // Contact detail
-        app.route('/contact/:contactId')
+        app.route('/user/:userId')
             // get specific contact
             .get(this.userController.getUsersById)
             .put(this.userController.updateUser)
