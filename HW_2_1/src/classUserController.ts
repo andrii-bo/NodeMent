@@ -3,7 +3,7 @@ import { Request, Response } from 'express';
 
 const Contact = userSchema;
 
-export class userController {
+export class myClassUserController {
 
     private serial(data: iUser) {
         this.users[data.id] = data;

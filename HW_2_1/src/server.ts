@@ -1,9 +1,9 @@
-import App from "./classApp";
+import myClassApp from "./classApp";
 
-let myApp = new App();
+let myApp = new myClassApp();
 const PORT = 3000;
 
-const server = myApp.app.listen(PORT, () => {
+const server = myApp.myExprApp.listen(PORT, () => {
     console.log("  Press CTRL-C to stop\n");
 });
 
