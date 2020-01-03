@@ -1,0 +1,26 @@
+{
+	"folders": [
+		{
+			"path": "D:\\Projects\\Node"
+		},
+		{
+			"name": "mp-liquibase",
+			"path": "D:\\Epam\\Adidas_GIT\\mp-liquibase"
+		},
+		{
+			"path": "HW_1_2"
+		},
+		{
+			"path": "HW_1_1"
+		},
+		{
+			"path": "HW_2_1"
+		},
+		{
+			"path": "D:\\NodeJSExample\\0_rest-api-node-typescript-master"
+		}
+	],
+	"settings": {
+		"workbench.colorTheme": "Material Theme"
+	}
+}
