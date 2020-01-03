@@ -15,7 +15,7 @@ export interface iUser {
     login: string;
     password: string;
     age: string;
-    isDeleted: string;
+    isDeleted: boolean;
 }
 
 
