@@ -17,4 +17,6 @@ class myClassApp {
     }
 }
 exports.default = myClassApp;
+//TypeScript-Node-Starter-master  - test
+//0_rest-api-node-typescript-master
 //# sourceMappingURL=classApp.js.map

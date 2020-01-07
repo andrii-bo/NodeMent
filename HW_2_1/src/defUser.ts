@@ -14,7 +14,7 @@ export interface iUser {
     id: string;
     login: string;
     password: string;
-    age: string;
+    age: number;
     isDeleted: boolean;
 }
 

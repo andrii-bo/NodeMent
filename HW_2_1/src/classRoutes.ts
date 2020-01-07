@@ -26,7 +26,7 @@ export class myClassRoutes {
             }, this.userController.getUsersByPattern)
             .post(this.userController.addUser);
 
-        pApp.route('/user/:userId')
+        pApp.route('/user/:id')
             .get(this.userController.getUsersById)
             .put(this.userController.updateUser)
             .delete(this.userController.deleteUser);
