@@ -1,13 +1,12 @@
-//import { Request, Response } from "express";
 import myClassApp from "../src/classApp";
-import chai from 'chai';
-import chaiHttp from 'chai-http';
+import chai from "chai";
+import chaiHttp from "chai-http";
 
 chai.use(chaiHttp);
 
 let should = chai.should();
 let myApp = new myClassApp();
-let server = myApp.myExprApp;
+let server = myApp.expApp;
 
 myApp.serverStart(3000);
 

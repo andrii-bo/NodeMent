@@ -7,7 +7,7 @@
     "test": "ts-mocha test/*.ts",
     "build": "tsc",
     "dev": "ts-node server.ts",
-    "start": "node dist/src/server.js",
+    "start": "ts-node src/server.ts",
     "prod": "npm run build && npm run start",
     "clean": "rimraf dist",
     "watch:build": "tsc --watch",
