@@ -1,10 +1,10 @@
-import * as express from "express";
+import express from "express";
 import { myClassRoutes } from "./classRoutes";
 import { myClassUserController } from "./classUserController";
 
 export default class myClassApp {
   private myRoutes: myClassRoutes = new myClassRoutes();
-  private myExprApp: express.Application = express();
+  public myExprApp: express.Application = express();
   private myUserController: myClassUserController;
   public serverStart(pPort: number) {
     this.myExprApp.listen(pPort, () => {

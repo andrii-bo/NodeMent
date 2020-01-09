@@ -4,10 +4,10 @@
   "description": "Homework 2",
   "main": "dist/server.js",
   "scripts": {
-    "test": "mocha --timeout 10000",
+    "test": "ts-mocha test/*.ts",
     "build": "tsc",
     "dev": "ts-node server.ts",
-    "start": "node dist/server.js",
+    "start": "node dist/src/server.js",
     "prod": "npm run build && npm run start",
     "clean": "rimraf dist",
     "watch:build": "tsc --watch",
@@ -22,10 +22,17 @@
     "nodemon": "^1.18.9"
   },
   "devDependencies": {
-    "@types/chai": "^4.2.3",
+    "@types/chai": "^4.2.7",
+    "@types/expect": "^24.3.0",
     "@types/express": "^4.17.2",
+    "@types/mocha": "^5.2.7",
+    "@types/uuid": "^3.4.6",
     "chai": "^4.2.0",
     "chai-http": "^4.3.0",
-    "mocha": "^6.2.2"
+    "mocha": "^7.0.0",
+    "ts-mocha": "^6.0.0",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.4",
+    "uuid": "^3.3.3"
   }
 }

@@ -17,13 +17,7 @@ export class myClassRoutes {
             })
 
         pApp.route('/user')
-            .get((req: Request, res: Response, next: NextFunction) => {
-                res.status(200).send({
-                    message: `${req.body}`
-                });
-                console.log(`Request type: ${req.body}`);
-                next();
-            }, this.userController.getUsersByPattern)
+            .get(this.userController.getUsers)
             .post(this.userController.addUser);
 
         pApp.route('/user/:id')
