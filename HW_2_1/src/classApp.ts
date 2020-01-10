@@ -21,17 +21,25 @@ export default class myClassApp {
 
     this.expApp
       .route("/user")
-      .get((req: Request, res: Response) => this.userController.dmlUser(req, res, lstCRUD.Read))
-      .post((req: Request, res: Response) => this.userController.dmlUser(req, res, lstCRUD.Create))
-      .put((req: Request, res: Response) => this.userController.dmlUser(req, res, lstCRUD.Update))
-      .delete((req: Request, res: Response) => this.userController.dmlUser(req, res, lstCRUD.Delete))
-    /*
-        this.expApp
-          .route("/user/:id")
-          .get(this.userController.getUsersById)
-          .put(this.userController.updateUser)
-          .delete(this.userController.deleteUser);
-    */
+      .get((req: Request, res: Response) =>
+        this.userController.dmlUser(req, res, lstCRUD.Read)
+      )
+      .post((req: Request, res: Response) =>
+        this.userController.dmlUser(req, res, lstCRUD.Create)
+      );
+
+      this.expApp
+      .route("/user/:id")
+      .get((req: Request, res: Response) =>
+        this.userController.dmlUser(req, res, lstCRUD.Read)
+      )
+      .put((req: Request, res: Response) =>
+        this.userController.dmlUser(req, res, lstCRUD.Update)
+      )
+      .delete((req: Request, res: Response) =>
+        this.userController.dmlUser(req, res, lstCRUD.Delete)
+      );
+
   }
 
   constructor() {

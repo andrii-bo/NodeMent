@@ -45,17 +45,25 @@ export class myClassUserController {
     console.log({ request: req.body });
     console.log({ added_user: lUser });
     this.users[lId] = lUser;
-    res.json({ message: "User successfully added!", lUser });
+    res.json({ message: "User successfully added!", result: lUser });
   }
 
   private getUsers(req: Request, res: Response) {
     let resUsers: iUsers = <iUsers>{};
     let id: string;
-    console.log({ "query": req.query });        
-    console.log({ "params": req.params });    
-    if (req.params['id']) {
-      id = req.params['id'];
-      resUsers[id] = this.users[id];
+    let isLimit: boolean=false;
+    let isFilter: boolean=false;
+    console.log({ query: req.query });
+    console.log({ params: req.params });
+    isLimit=req.query["limit"];
+    isFilter=req.query["filter"];
+    if (req.params["id"]) {
+      if (isLimit OR) {
+        limit = req.query.limit;
+      } else {
+        id = req.params["id"];
+        resUsers[id] = this.users[id];
+      }
     } else {
       for (let lKey in this.users) {
         resUsers[lKey] = this.users[lKey];
