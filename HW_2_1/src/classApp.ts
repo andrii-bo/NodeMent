@@ -1,7 +1,7 @@
 import express from "express";
 import { Request, Response } from "express";
 import { myClassUserController } from "./classUserController";
-import handleError from "./utils";
+import { handleError, lstCRUD } from "./utils";
 
 export default class myClassApp {
   private curRequest: Request;
@@ -16,19 +16,22 @@ export default class myClassApp {
 
   public processRoutes(): void {
     this.expApp.route("/").get((req: Request, res: Response) => {
-      res.status(200).send({ message: "GET request successfulll!!!!" });
+      res.status(200).send({ message: "GET request successfulll!" });
     });
 
     this.expApp
       .route("/user")
-      .get(this.userController.getUsers)
-      .post(this.userController.addUser);
-
-    this.expApp
-      .route("/user/:id")
-      .get(this.userController.getUsersById)
-      .put(this.userController.updateUser)
-      .delete(this.userController.deleteUser);
+      .get((req: Request, res: Response) => this.userController.dmlUser(req, res, lstCRUD.Read))
+      .post((req: Request, res: Response) => this.userController.dmlUser(req, res, lstCRUD.Create))
+      .put((req: Request, res: Response) => this.userController.dmlUser(req, res, lstCRUD.Update))
+      .delete((req: Request, res: Response) => this.userController.dmlUser(req, res, lstCRUD.Delete))
+    /*
+        this.expApp
+          .route("/user/:id")
+          .get(this.userController.getUsersById)
+          .put(this.userController.updateUser)
+          .delete(this.userController.deleteUser);
+    */
   }
 
   constructor() {

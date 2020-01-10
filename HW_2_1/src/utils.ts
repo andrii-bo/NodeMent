@@ -1,4 +1,9 @@
-
+export enum lstCRUD {
+  Create = "CREATE",
+  Read = "READ",
+  Update = "UPDATE",
+  Delete = "DELETE",
+}
 
 interface iError {
   code: string;
@@ -7,7 +12,7 @@ interface iError {
   request: string;
 }
 
-export default function handleError(
+export function handleError(
   pErr: any,
   pCode?: string,
   pReq?: string
