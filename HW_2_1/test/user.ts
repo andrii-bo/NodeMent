@@ -50,7 +50,7 @@ describe('Users CRUD', () => {
 });
 
 describe('Users validation', () => {
-    it('it shouldnt POST a user with age more then 130', (done) => {
+    it('it shouldnt POST a user with age more then 130, repsonse status 400', (done) => {
       let user = {
         "login": "user7@mail.com",
         "password": "12345g" ,
@@ -60,8 +60,7 @@ describe('Users validation', () => {
         .post('/user')
         .send(user)
         .end((err, res) => {
-          res.should.have.status(200);
-          res.body.should.be.a('object');
+          res.should.have.status(400);
           done();
         });
     });
