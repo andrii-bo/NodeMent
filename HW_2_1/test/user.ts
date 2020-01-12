@@ -1,5 +1,6 @@
 import myClassApp from "../src/classApp";
 import chai from "chai";
+var expect = require("chai").expect;
 import chaiHttp from "chai-http";
 
 chai.use(chaiHttp);
@@ -10,48 +11,58 @@ let server = myApp.expApp;
 
 myApp.serverStart(3000);
 
-describe('Users', () => {
+describe('Users CRUD', () => {
 
-  describe('/GET user', () => {
-      it('it should GET all the users', (done) => {
-        chai.request(server)
-            .get('/user')
-            .end((err, res) => {
-                res.should.have.status(200);
-//                res.body.should.be.a('array');
-              done();
-            });
-      });
-  });
+  for (let index = 0; index < 5; index++) {
 
-/*
- id: string;
-    login: string;
-    password: string;
-    age: number;
-    isDeleted: boolean;
-*/
-
-  describe('/POST user', () => {
     it('it should POST a user', (done) => {
       let user = {
-          login: "1@mail.com",
-          password: "12345",          
-          age: 25
-      }
+        "login": "user" + index + "@mail.com",
+        "password": "12345" + index,
+        "age": 25
+      };
       chai.request(server)
-          .post('/user')
-          .send(user)
-          .end((err, res) => {
-              res.should.have.status(200);
-              res.body.should.be.a('object');
-              //res.body.user.should.have.property('login');
-              //res.body.user.should.have.property('password');
-              //res.body.user.should.have.property('age');
-            done();
-          });
+        .post('/user')
+        .send(user)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          done();
+        });
     });
+
+  };
+
+  describe('/GET user', () => {
+    it('it should GET 5 the users', (done) => {
+      chai.request(server)
+        .get('/user')
+        .end((err, res) => {
+          res.should.have.status(200);
+          expect(res.body).to.be.an('array');
+          expect(res.body).to.have.lengthOf(5);
+          done();
+        });
+    });
+  });
+
 
 });
 
+describe('Users validation', () => {
+    it('it shouldnt POST a user with age more then 130', (done) => {
+      let user = {
+        "login": "user7@mail.com",
+        "password": "12345g" ,
+        "age": 131
+      };
+      chai.request(server)
+        .post('/user')
+        .send(user)
+        .end((err, res) => {
+          res.should.have.status(200);
+          res.body.should.be.a('object');
+          done();
+        });
+    });
 });
