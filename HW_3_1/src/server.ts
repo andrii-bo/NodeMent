@@ -1,4 +1,4 @@
-import myClassApp from "./classApp";
+import App from "./app";
 
-let myApp = new myClassApp();
+let myApp = new App();
 myApp.serverStart(3000);

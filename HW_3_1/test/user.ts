@@ -1,4 +1,4 @@
-import myClassApp from "../src/classApp";
+import App from "../src/app";
 import chai from "chai";
 var expect = require("chai").expect;
 import chaiHttp from "chai-http";
@@ -6,7 +6,7 @@ import chaiHttp from "chai-http";
 chai.use(chaiHttp);
 
 let should = chai.should();
-let myApp = new myClassApp();
+let myApp = new App();
 let server = myApp.expApp;
 
 myApp.serverStart(3000);

@@ -5,9 +5,11 @@
         "pretty": true,
         "sourceMap": true,
         "esModuleInterop": true,
-        "target": "es6",
+        "target": "es2017",
         "outDir": "dist",
-        "baseUrl": "src"
+        "baseUrl": "src",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true, 
     },
     "include": [
         "src/*.ts",

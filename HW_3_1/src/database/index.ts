@@ -1,53 +1,48 @@
-import {Connection, createConnection} from 'typeorm';
-import { Produto } from '../models/produto';
-import { Estoque } from '../models/estoque';
-import { EntradaProduto } from '../models/entradaProduto';
-import { SaidaProduto } from '../models/saidaProduto';
-import { Usuario } from '../models/usuario';
+import { Connection, createConnection } from 'typeorm';
+import { TUser } from '../models/userMdl';
 
-
-export interface DatabaseConfiguration {
-    type: 'postgres' | 'mysql' | 'mssql';
-    host: string;
-    port: number;
-    username: string;
-    password: string;
-    database: string;
-    ssl?: boolean;
-}
 
 export class DatabaseProvider {
     private static connection: Connection;
-    private static configuration: DatabaseConfiguration;
+    private type: 'postgres' | 'mysql' | 'mssql';
+    private host: string;
+    private port: number;
+    private username: string;
+    private password: string;
+    private database: string;
+    private ssl: boolean = false;
 
-    public static configure(databaseConfiguration: DatabaseConfiguration): void {
-        DatabaseProvider.configuration = databaseConfiguration;
+    constructor(type: 'postgres' | 'mysql' | 'mssql',
+        host: string,
+        port: number,
+        username: string,
+        password: string,
+        database: string,
+        ssl: boolean = false) {
+        this.type = type;
+        this.host = host;
+        this.port = port;
+        this.username = username;
+        this.password = password
+        this.database = database;
+        this.ssl = ssl;
     }
 
-    public static async getConnection(): Promise<Connection> {
+    public async getConnection(): Promise<Connection> {
         if (DatabaseProvider.connection) {
             return DatabaseProvider.connection;
         }
 
-        if (!DatabaseProvider.configuration) {
-            throw new Error('DatabaseProvider is not configured yet.');
-        }
-
-        const { type, host, port, username, password, database, ssl } = DatabaseProvider.configuration;
         DatabaseProvider.connection = await createConnection({
-            type, host, port, username, password, database,
+            type: this.type, host: this.host, port: this.port, username: this.username, password: this.password, database: this.database,
             extra: {
-                ssl
+                ssl: this.ssl
             },
             entities: [
-                Produto,
-                Estoque,
-                EntradaProduto,
-                SaidaProduto,
-                Usuario
+                TUser
             ],
             autoSchemaSync: true
-        } as any); // as any to prevent complaining about the object does not fit to MongoConfiguration, which we won't use here
+        } as any);
 
         return DatabaseProvider.connection;
     }
