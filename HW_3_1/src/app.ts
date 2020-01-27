@@ -1,7 +1,7 @@
 import express from "express";
 import { Request, Response } from "express";
 import { ControllersSet } from "./controllers/controllersSet";
-import { DatabaseProvider } from "database";
+import { DatabaseProvider, DatabaseCredentials } from "./database/index";
 
 export default class App {
   private curRequest: Request;
@@ -9,8 +9,8 @@ export default class App {
   private controllersSet: ControllersSet;
   private db: DatabaseProvider;
   public expApp: express.Application = express();
-  public serverStart(port: number,databaseCredentials:DatabaseCredentials) {
-    this db=new DatabaseProvider(databaseCredentials);
+  public serverStart(port: number, databaseCredentials: DatabaseCredentials) {
+    this.db = new DatabaseProvider(databaseCredentials);
     this.expApp.listen(port, () => {
       console.log("  Press CTRL-C to stop\n");
     });

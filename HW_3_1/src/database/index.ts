@@ -20,27 +20,22 @@ export class DatabaseProvider {
     private password: string;
     private database: string;
     private ssl: boolean = false;
+    private creds:DatabaseCredentials;
 
     constructor(databaseCredentials:DatabaseCredentials) {
-        this.type = type;
-        this.host = host;
-        this.port = port;
-        this.username = username;
-        this.password = password
-        this.database = database;
-        this.ssl = ssl;
+        this.creds=databaseCredentials;
     }
 
     public async getConnection(): Promise<Connection> {
         if (DatabaseProvider.connection) {
             return DatabaseProvider.connection;
         }
-
+        const { type, host, port, username, password, database, ssl } = this.creds;
         DatabaseProvider.connection = await createConnection({
-            type: this.type, host: this.host, port: this.port, username: this.username, password: this.password, database: this.database,
+            type, host, port, username, password, database,
             extra: {
-                ssl: this.ssl
-            },
+                ssl
+            }, 
             entities: [
                 TUser
             ],

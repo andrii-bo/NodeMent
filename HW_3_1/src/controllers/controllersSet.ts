@@ -8,8 +8,8 @@ export class ControllersSet {
     controllers = [
         new UserController(this.expApp,this.db)
     ];
-    constructor(papp: express.Application,db:DatabaseProvider) {
-        this.expApp = papp;  
+    constructor(app: express.Application,db:DatabaseProvider) {
+        this.expApp = app;  
         this.db = db;        
     };
 

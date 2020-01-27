@@ -2,7 +2,7 @@ import express from "express";
 import { Request, Response } from "express";
 import { DatabaseProvider } from "../database/index";
 import { DmlService } from "services/dmlService";
-import { lstCRUD } from "utils";
+import { lstCRUD } from "../utils";
 
 export abstract class Controller {
   protected db: DatabaseProvider;
