@@ -12,7 +12,7 @@ export abstract class DmlService {
     protected keyEntity: IEntity;
     protected is_key_id: boolean = false;
     public entities: IEntity = <IEntity>{};
-    protected databaseProvider: DatabaseProvider = new DatabaseProvider('mysql', 'localhost', 3306, 'USER_name', 'Alunos1234', 'database');
+    protected db: DatabaseProvider;
 
     public dml(req: Request, res: Response, op: lstCRUD) {
         try {

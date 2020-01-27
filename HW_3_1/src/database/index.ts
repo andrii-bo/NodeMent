@@ -1,6 +1,15 @@
 import { Connection, createConnection } from 'typeorm';
 import { TUser } from '../models/userMdl';
 
+export interface DatabaseCredentials {
+    type: 'postgres' | 'mysql' | 'mssql';
+    host: string;
+    port: number;
+    username: string;
+    password: string;
+    database: string;
+    ssl?: boolean;
+} ;
 
 export class DatabaseProvider {
     private static connection: Connection;
@@ -12,13 +21,7 @@ export class DatabaseProvider {
     private database: string;
     private ssl: boolean = false;
 
-    constructor(type: 'postgres' | 'mysql' | 'mssql',
-        host: string,
-        port: number,
-        username: string,
-        password: string,
-        database: string,
-        ssl: boolean = false) {
+    constructor(databaseCredentials:DatabaseCredentials) {
         this.type = type;
         this.host = host;
         this.port = port;
