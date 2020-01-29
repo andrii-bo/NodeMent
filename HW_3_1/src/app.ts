@@ -7,10 +7,10 @@ export default class App {
   private curRequest: Request;
   private curResponse: Response;
   private controllersSet: ControllersSet;
-  private db: DatabaseProvider;
+  public db: DatabaseProvider;
   public expApp: express.Application = express();
   public serverStart(port: number, databaseCredentials: DatabaseCredentials) {
-    this.db = new DatabaseProvider(databaseCredentials);
+    this.db = new DatabaseProvider(databaseCredentials);    
     this.expApp.listen(port, () => {
       console.log("  Press CTRL-C to stop\n");
     });
@@ -22,6 +22,6 @@ export default class App {
       this.curRequest = req;
       next();
     });
-    this.controllersSet = new ControllersSet(this.expApp, this.db);
+    this.controllersSet = new ControllersSet(this);
   }
 }

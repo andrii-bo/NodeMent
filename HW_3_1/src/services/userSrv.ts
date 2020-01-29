@@ -1,29 +1,31 @@
 import { DmlService } from "./dmlService";
 import uuid from "uuid";
-import { userSchema, IUser } from "../models/userMdl";
+import { userSchema, IUser, TUser } from "../models/userMdl";
 import Joi from "@hapi/joi";
-import { iGetParams } from "utils";
+import { iGetParams, iExecResult ,retResult,retError} from "../utils";
 
 export class UserSrv extends DmlService {
   private schemaValidation: Joi.ObjectSchema = userSchema;
 
-  add(entity: IUser):IUser {
+  add(entity: IUser):iExecResult {
     let lUser: IUser = entity;
 
     lUser.isDeleted = false;
     lUser.id = uuid.v1();
+    const newUser = new TUser(lUser);    
+    this.connection.getRepository(TUser).save(newUser);
     return this.mergeUser(lUser, lUser.id);
     /*
-        const newCustomer = new Customer();
+       const newCustomer = new Customer();
         newCustomer.firstName = customer.firstName;
         newCustomer.lastName = customer.lastName;
 
         const connection = await DatabaseProvider.getConnection();
-        return await connection.getRepository(Customer).save(newCustomer);
-        */
+        return await connection.getRepository(Customer).save(newCustomer)
+    */
   }
 
-  get(entity: IUser, getParams: iGetParams): IUser[] {
+  get(getParams: iGetParams): IUser[] {
     let resUsers: IUser[] = [];
     let isLimit: boolean = false;
     let isFilter: boolean = false;
@@ -63,19 +65,17 @@ export class UserSrv extends DmlService {
     return this.mergeUser(entity, this.key_id);
   }
 
-  mergeUser(entity: IUser, pId: string):IUser {
+  mergeUser(entity: IUser, pId: string):iExecResult {
     let validateRes: Joi.ValidationResult;
-    let res: IUser={};
     validateRes = this.schemaValidation.validate(entity);
-    if (validateRes.error) {        
-      throw new TypeError(validateRes.error.message);            
+    if (validateRes.error) {     
+      return retError( 400 ,validateRes.error);   
     } else {
       this.entities[pId] = entity;
       this.key_id = pId;
       this.keyEntity = this.entities[pId];
     }
-    res=this.entities[pId];    
-    return res;    
+    return retResult(this.entities[pId]);    
     /*
         const connection = await DatabaseProvider.getConnection();
         const repository = connection.getRepository(Customer);

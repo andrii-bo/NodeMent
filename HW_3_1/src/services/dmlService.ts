@@ -1,18 +1,19 @@
-import { iGetParams } from "../utils";
-import { iEntity } from "../models/entityMdl";
+import { iGetParams,iExecResult } from "../utils";
+import { iEntity ,TEntity} from "../models/entityMdl";
 import { Connection } from "typeorm";
 import { DatabaseProvider } from "../database/index";
+import App from "../app";
 
 export abstract class DmlService {
-  abstract add(entity: iEntity): iEntity;
-  abstract get(entity: iEntity, getParams: iGetParams): iEntity[];
-  abstract update(entity: iEntity, id: string): iEntity;
+  abstract add(entity: iEntity): iExecResult;
+  abstract get(getParams: iGetParams): iEntity[];
+  abstract update(entity: iEntity, id: string): iExecResult;
   abstract delete(id: string): void;
   protected key_id: string;
   protected keyEntity: iEntity;
   protected is_key_id: boolean = false;
   public entities: iEntity = <iEntity>{};
-  private db: DatabaseProvider;
+  protected db: DatabaseProvider;
   protected connection: Connection;
   
   public init(getParams?: iGetParams) {
@@ -23,7 +24,13 @@ export abstract class DmlService {
     }
   }
 
-  constructor(db: DatabaseProvider) {
-    this.db = db;
+  constructor(main: App) {
+    this.db = main.db;
+    this.retConnection;
   }
+
+  protected async retConnection() {
+    this.connection = await this.db.getConnection();
+  };
+
 }

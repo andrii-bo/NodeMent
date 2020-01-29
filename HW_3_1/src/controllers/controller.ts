@@ -3,13 +3,14 @@ import { Request, Response } from "express";
 import { DmlService } from "../services/dmlService";
 import { iEntity } from "../models/entityMdl";
 import { lstCRUD, iExecResult, iGetParams, retError } from "../utils";
+import App from "../app";
 
 export abstract class Controller {
   protected srv: DmlService;
-  protected expApp: express.Application;
+  protected main: App;
   protected entity: iEntity = {};
-  constructor(expApp: express.Application, srv: DmlService) {
-    this.expApp = expApp;
+  constructor(main: App, srv: DmlService) {
+    this.main = main;
     this.srv = srv;
   }
 
@@ -17,6 +18,7 @@ export abstract class Controller {
     let result: iExecResult;
     let resEntity: iEntity;
     let resEntities: iEntity[];
+    let execRes:iExecResult;          
     try {
       this.entity = <T>req.body;
       let getParams: iGetParams = {};
@@ -27,19 +29,21 @@ export abstract class Controller {
       this.srv.init(getParams);
       switch (crudType) {
         case lstCRUD.Create:
-          resEntity = <T>this.srv.add(this.entity);
-          res.status(200).json(resEntity);
+          execRes=this.srv.add(this.entity);
+          resEntity = <T>execRes.result;
+          res.status(execRes.code).json(resEntity);
           break;
         case lstCRUD.Delete:
           this.srv.delete(getParams.id);
           res.status(200);
           break;
         case lstCRUD.Update:
-          resEntity = <T>this.srv.update(this.entity, getParams.id);
-          res.status(200).json(resEntity);
+          execRes = this.srv.update(this.entity, getParams.id);
+          resEntity = <T>execRes.result;
+          res.status(execRes.code).json(resEntity);
           break;
         case lstCRUD.Read:
-          resEntities = <T[]>this.srv.get(this.entity, getParams);
+          resEntities = <T[]>this.srv.get(getParams);
           res.status(200).json(resEntities);
           break;
       }
@@ -50,11 +54,11 @@ export abstract class Controller {
   }
 
   mapRoutesToEntity<T>(entityName: string): void {
-    this.expApp.route("/").get((req: Request, res: Response) => {
+    this.main.expApp.route("/").get((req: Request, res: Response) => {
       res.status(200).send({ message: "GET request successfulll!" });
     });
 
-    this.expApp
+    this.main.expApp
       .route("/" + entityName)
       .get(async (req: Request, res: Response) =>
         this.runDml<T>(req, res, lstCRUD.Read)
@@ -63,7 +67,7 @@ export abstract class Controller {
         this.runDml<T>(req, res, lstCRUD.Create)
       );
 
-    this.expApp
+    this.main.expApp
       .route("/" + entityName + "/:id")
       .get((req: Request, res: Response) => this.runDml(req, res, lstCRUD.Read))
       .put((req: Request, res: Response) =>

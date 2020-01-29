@@ -10,10 +10,12 @@ export interface iExecResult {
   message?: string;
   stack?: string;
   request?: string;
+  result?: any;
 }
 
 export function retResult(
-  code: number,
+  result?: any,  
+  code: number = 200,
   req?: string,
   message?:string
 ): iExecResult {
@@ -21,12 +23,13 @@ export function retResult(
   lResult.code = code;
   lResult.message = message;  
   lResult.request = req;
+  lResult.result = result;
   return lResult;
 }
 
 export function retError(
-  pErr: any,
   pCode: number,
+  pErr?: any,  
   pReq?: string
 ): iExecResult {
   let lError: iExecResult = <iExecResult>{};

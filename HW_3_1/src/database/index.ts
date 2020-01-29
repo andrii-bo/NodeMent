@@ -13,17 +13,10 @@ export interface DatabaseCredentials {
 
 export class DatabaseProvider {
     private connection: Connection;
-    private type: 'postgres' | 'mysql' | 'mssql';
-    private host: string;
-    private port: number;
-    private username: string;
-    private password: string;
-    private database: string;
-    private ssl: boolean = false;
     private creds:DatabaseCredentials;
 
     constructor(databaseCredentials:DatabaseCredentials) {
-        this.creds=databaseCredentials;
+        this.creds=databaseCredentials;        
     }
 
     public async getConnection(): Promise<Connection> {

@@ -3,16 +3,14 @@ import express from "express";
 import { DatabaseProvider } from "database";
 import { Controller } from "./controller";
 import { UserSrv } from "../services/UserSrv";
+import App from "../app";
 
 export class ControllersSet {
-  protected expApp: express.Application;
-  protected db: DatabaseProvider;
+  protected main: App;
   protected controllers: Controller[] = [];
 
-  constructor(expApp: express.Application, db: DatabaseProvider) {
-    this.expApp = expApp;
-    this.db = db;
-    
-    this.controllers.push(new UserController(expApp, new UserSrv(db)));
+  constructor(main:App) {
+    this.main = main;
+    this.controllers.push(new UserController(main, new UserSrv(main)));
   }
 }
