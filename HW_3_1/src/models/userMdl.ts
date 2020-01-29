@@ -1,5 +1,5 @@
 import Joi from '@hapi/joi';
-import { IEntity } from "./entityMdl";
+import { iEntity } from "./entityMdl";
 import { PrimaryGeneratedColumn, Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
 
 export const userSchema: Joi.ObjectSchema = Joi.object({
@@ -10,11 +10,10 @@ export const userSchema: Joi.ObjectSchema = Joi.object({
     isDeleted: Joi.bool().required()
 });
 
-export interface IUser extends IEntity{
+export interface IUser extends iEntity{
     login?: string;
     password?: string;
     age?: number;
-    isDeleted?: boolean;
 }
 
 

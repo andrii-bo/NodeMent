@@ -1,70 +1,92 @@
-import {DmlService} from './dmlService';
-import { Request, Response } from "express";
+import { DmlService } from "./dmlService";
 import uuid from "uuid";
 import { userSchema, IUser } from "../models/userMdl";
-import Joi from '@hapi/joi';
-
+import Joi from "@hapi/joi";
+import { iGetParams } from "utils";
 
 export class UserSrv extends DmlService {
+  private schemaValidation: Joi.ObjectSchema = userSchema;
 
-    private schemaValidation: Joi.ObjectSchema = userSchema;
-   
-     add(req: Request, res: Response) {
-        let lId: string = uuid.v1();
-        let lUser: IUser = <IUser>{};
+  add(entity: IUser):IUser {
+    let lUser: IUser = entity;
 
-        lUser = <IUser>req.body;
-        lUser.isDeleted = false;
-        lUser.id = lId;
-        this.mergeUser(req, res, lUser, lId);
+    lUser.isDeleted = false;
+    lUser.id = uuid.v1();
+    return this.mergeUser(lUser, lUser.id);
+    /*
+        const newCustomer = new Customer();
+        newCustomer.firstName = customer.firstName;
+        newCustomer.lastName = customer.lastName;
+
+        const connection = await DatabaseProvider.getConnection();
+        return await connection.getRepository(Customer).save(newCustomer);
+        */
+  }
+
+  get(entity: IUser, getParams: iGetParams): IUser[] {
+    let resUsers: IUser[] = [];
+    let isLimit: boolean = false;
+    let isFilter: boolean = false;
+    let lSortUsers: IUser[] = [];
+    if (getParams.limit) isLimit = true;
+    else isLimit = false;
+    if (getParams.filter) isFilter = true;
+    else isFilter = false;
+
+    for (let lKey in this.entities) {
+      if (isFilter) {
+        if (this.entities[lKey].login.includes(getParams.filter))
+          lSortUsers.push(this.entities[lKey]);
+      } else lSortUsers.push(this.entities[lKey]);
+    }
+    if (isLimit) lSortUsers.splice(getParams.limit);
+
+    lSortUsers.sort((a, b) => {
+      return a.login.localeCompare(b.login);
+    });
+
+    if (this.is_key_id) {
+      resUsers.push(this.keyEntity);
+    } else {
+      resUsers = lSortUsers;
     }
 
-    get(req: Request, res: Response) {
-        let resUsers: IUser[] = [];
-        let isLimit: boolean = false;
-        let isFilter: boolean = false;
-        let lSortUsers: IUser[] = [];
-        isLimit = req.query["limit"];
-        isFilter = req.query["filter"];
+    return resUsers;
 
-        for (let lKey in this.entities) {
-            if (isFilter) {
-                if (this.entities[lKey].login.includes(req.query["filter"])) lSortUsers.push(this.entities[lKey]);
-            } else lSortUsers.push(this.entities[lKey]);
-        }
-        if (isLimit) lSortUsers.splice(req.query["limit"]);
+    /*
+        const connection = await DatabaseProvider.getConnection();
+        return await connection.getRepository(Customer).find();
+        */
+  }
 
-        lSortUsers.sort((a, b) => {
-            return a.login.localeCompare(b.login);
-        });
+  update(entity: IUser) {
+    return this.mergeUser(entity, this.key_id);
+  }
 
-        if (this.is_key_id) {
-            resUsers.push(this.keyEntity);
-        } else {
-            resUsers = lSortUsers;
-        };
-
-        res.json(resUsers);
+  mergeUser(entity: IUser, pId: string):IUser {
+    let validateRes: Joi.ValidationResult;
+    let res: IUser={};
+    validateRes = this.schemaValidation.validate(entity);
+    if (validateRes.error) {        
+      throw new TypeError(validateRes.error.message);            
+    } else {
+      this.entities[pId] = entity;
+      this.key_id = pId;
+      this.keyEntity = this.entities[pId];
     }
+    res=this.entities[pId];    
+    return res;    
+    /*
+        const connection = await DatabaseProvider.getConnection();
+        const repository = connection.getRepository(Customer);
+        const entity = await repository.findOneById(customer.id);
+        entity.firstName = customer.firstName;
+        entity.lastName = customer.lastName;
+        return await repository.save(entity);
+        */
+  }
 
-    update(req: Request, res: Response) {
-        this.mergeUser(req, res, <IUser>req.body, this.key_id);
-    }
-
-    mergeUser(req: Request, res: Response, pUser: IUser, pId: string) {
-        let validateRes: Joi.ValidationResult;
-        validateRes = this.schemaValidation.validate(pUser);
-        if (validateRes.error) {
-            res.status(400).send({ "message": "New User validation fail", "error": validateRes.error });
-        } else {
-            this.entities[pId] = pUser;
-            this.key_id = pId;
-            this.keyEntity = pUser;
-            res.json({ message: "User successfully added!", "validatedRes": validateRes });
-        }
-    }
-
-    delete(req: Request, res: Response) {
-        this.entities[this.key_id].isDeleted = false;
-    }
+  delete(id: string) {
+    this.entities[id].isDeleted = false;
+  }
 }

@@ -12,7 +12,7 @@ export interface DatabaseCredentials {
 } ;
 
 export class DatabaseProvider {
-    private static connection: Connection;
+    private connection: Connection;
     private type: 'postgres' | 'mysql' | 'mssql';
     private host: string;
     private port: number;
@@ -27,11 +27,11 @@ export class DatabaseProvider {
     }
 
     public async getConnection(): Promise<Connection> {
-        if (DatabaseProvider.connection) {
-            return DatabaseProvider.connection;
+        if (this.connection) {
+            return this.connection;
         }
         const { type, host, port, username, password, database, ssl } = this.creds;
-        DatabaseProvider.connection = await createConnection({
+        this.connection = await createConnection({
             type, host, port, username, password, database,
             extra: {
                 ssl
@@ -42,6 +42,6 @@ export class DatabaseProvider {
             autoSchemaSync: true
         } as any);
 
-        return DatabaseProvider.connection;
+        return this.connection;
     }
 }

@@ -5,22 +5,40 @@ export enum lstCRUD {
   Delete = "DELETE",
 }
 
-interface iError {
-  code: string;
-  message: string;
-  stack: string;
-  request: string;
+export interface iExecResult {
+  code: number;
+  message?: string;
+  stack?: string;
+  request?: string;
 }
 
-export function handleError(
+export function retResult(
+  code: number,
+  req?: string,
+  message?:string
+): iExecResult {
+  let lResult: iExecResult = <iExecResult>{};
+  lResult.code = code;
+  lResult.message = message;  
+  lResult.request = req;
+  return lResult;
+}
+
+export function retError(
   pErr: any,
-  pCode?: string,
+  pCode: number,
   pReq?: string
-): iError {
-  let lError: iError = <iError>{};
+): iExecResult {
+  let lError: iExecResult = <iExecResult>{};
   lError.code = pCode;
   lError.message = pErr.message;
   lError.stack = pErr.stack;
   lError.request = pReq;
   return lError;
+}
+
+export interface iGetParams {
+  id?:string;
+  limit?: number;
+  filter?: string;
 }

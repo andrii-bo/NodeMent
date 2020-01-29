@@ -1,11 +1,11 @@
 import express from "express";
 import { Controller } from "./controller";
-import { UserSrv } from "../services/userSrv";
-import { DatabaseProvider } from "../database/index";
+import { IUser } from "models/userMdl";
+import { DmlService } from "services/dmlService";
 
 export class UserController extends Controller {
-  constructor(expApp: express.Application, db: DatabaseProvider) {
-    super(expApp, db, new UserSrv());
-    this.mapRoutesToEntity("user");
+  constructor(expApp: express.Application, srv: DmlService) {
+    super(expApp, srv);
+    this.mapRoutesToEntity<IUser>("user");
   }
 }

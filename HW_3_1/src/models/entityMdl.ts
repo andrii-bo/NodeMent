@@ -1,7 +1,8 @@
-export interface IEntity {
+export interface iEntity {
     id?: string;
+    isDeleted?: boolean;    
 }
 
-export interface IEntities {
-    [id: string]: IEntity;
+export interface iEntities {
+    [id: string]: iEntity;
 }
