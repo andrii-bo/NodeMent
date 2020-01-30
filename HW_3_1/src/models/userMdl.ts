@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi';
 import { iEntity, TEntity } from "./entityMdl";
-import { PrimaryGeneratedColumn, Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity } from "typeorm";
 
 export const userSchema: Joi.ObjectSchema = Joi.object({
     id: Joi.string().required(),

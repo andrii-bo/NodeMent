@@ -1,8 +1,7 @@
-import { iGetParams,iExecResult } from "../utils";
-import { iEntity ,TEntity} from "../models/entityMdl";
-import { Connection } from "typeorm";
-import { DatabaseProvider } from "../database/index";
+import { iGetParams, iExecResult } from "../utils";
+import { iEntity } from "../models/entityMdl";
 import App from "../app";
+import { DatabaseProvider } from "../database/index";
 
 export abstract class DmlService {
   abstract add(entity: iEntity): iExecResult;
@@ -13,9 +12,8 @@ export abstract class DmlService {
   protected keyEntity: iEntity;
   protected is_key_id: boolean = false;
   public entities: iEntity = <iEntity>{};
-  protected db: DatabaseProvider;
-  protected connection: Connection;
-  
+  public db: DatabaseProvider;
+
   public init(getParams?: iGetParams) {
     if (getParams.id) {
       this.key_id = getParams.id;
@@ -25,12 +23,6 @@ export abstract class DmlService {
   }
 
   constructor(main: App) {
-    this.db = main.db;
-    this.retConnection;
+    this.db =  main.db;    
   }
-
-  protected async retConnection() {
-    this.connection = await this.db.getConnection();
-  };
-
 }

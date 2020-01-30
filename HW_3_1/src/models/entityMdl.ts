@@ -16,10 +16,10 @@ export class TEntity {
     public id: string;
 
     @Column()
-    public isDeleted: boolean;
+    public is_deleted: boolean;
 
     constructor(entity:iEntity){
        this.id=entity.id;
-       this.isDeleted=entity.isDeleted;
+       this.is_deleted=entity.isDeleted;
     }
 }

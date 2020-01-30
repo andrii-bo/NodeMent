@@ -1,40 +1,43 @@
-import { Connection, createConnection } from 'typeorm';
-import { TUser } from '../models/userMdl';
+import { Connection, createConnection } from "typeorm";
+import { TUser } from "../models/userMdl";
+import { iExecResult, retResult, retError } from "../utils";
 
 export interface DatabaseCredentials {
-    type: 'postgres' | 'mysql' | 'mssql';
-    host: string;
-    port: number;
-    username: string;
-    password: string;
-    database: string;
-    ssl?: boolean;
-} ;
+  type: "postgres" | "mysql" | "mssql";
+  host: string;
+  port: number;
+  username: string;
+  password: string;
+  database: string;
+  ssl?: boolean;
+}
 
 export class DatabaseProvider {
-    private connection: Connection;
-    private creds:DatabaseCredentials;
+  public connection: Connection;
+  public connectionStatus: iExecResult;
+  private creds: DatabaseCredentials;
 
-    constructor(databaseCredentials:DatabaseCredentials) {
-        this.creds=databaseCredentials;        
+  constructor(databaseCredentials: DatabaseCredentials) {
+    this.creds = databaseCredentials;
+  }
+
+  public async connect() {
+    if (!this.connection) {
+      await createConnection({
+        type: this.creds.type,
+        host: this.creds.host,
+        port: this.creds.port,
+        username: this.creds.username,
+        password: this.creds.password,
+        database: this.creds.database
+      })
+        .then(connection => {
+          this.connection = connection;
+          this.connectionStatus = retResult(this.connection);
+        })
+        .catch(error => {
+          this.connectionStatus = retError(502, error);
+        });
     }
-
-    public async getConnection(): Promise<Connection> {
-        if (this.connection) {
-            return this.connection;
-        }
-        const { type, host, port, username, password, database, ssl } = this.creds;
-        this.connection = await createConnection({
-            type, host, port, username, password, database,
-            extra: {
-                ssl
-            }, 
-            entities: [
-                TUser
-            ],
-            autoSchemaSync: true
-        } as any);
-
-        return this.connection;
-    }
+  }
 }

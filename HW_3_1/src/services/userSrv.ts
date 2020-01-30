@@ -2,18 +2,22 @@ import { DmlService } from "./dmlService";
 import uuid from "uuid";
 import { userSchema, IUser, TUser } from "../models/userMdl";
 import Joi from "@hapi/joi";
-import { iGetParams, iExecResult ,retResult,retError} from "../utils";
+import { iGetParams, iExecResult, retResult, retError } from "../utils";
 
 export class UserSrv extends DmlService {
   private schemaValidation: Joi.ObjectSchema = userSchema;
 
-  add(entity: IUser):iExecResult {
+  add(entity: IUser): iExecResult {
     let lUser: IUser = entity;
 
     lUser.isDeleted = false;
     lUser.id = uuid.v1();
-    const newUser = new TUser(lUser);    
-    this.connection.getRepository(TUser).save(newUser);
+
+    if (this.db.connectionStatus.code === 200) {
+      const newUser = new TUser(lUser);
+      this.db.connection.getRepository("hw_user").save(newUser);
+    }
+
     return this.mergeUser(lUser, lUser.id);
     /*
        const newCustomer = new Customer();
@@ -65,17 +69,17 @@ export class UserSrv extends DmlService {
     return this.mergeUser(entity, this.key_id);
   }
 
-  mergeUser(entity: IUser, pId: string):iExecResult {
+  mergeUser(entity: IUser, pId: string): iExecResult {
     let validateRes: Joi.ValidationResult;
     validateRes = this.schemaValidation.validate(entity);
-    if (validateRes.error) {     
-      return retError( 400 ,validateRes.error);   
+    if (validateRes.error) {
+      return retError(400, validateRes.error);
     } else {
       this.entities[pId] = entity;
       this.key_id = pId;
       this.keyEntity = this.entities[pId];
     }
-    return retResult(this.entities[pId]);    
+    return retResult(this.entities[pId]);
     /*
         const connection = await DatabaseProvider.getConnection();
         const repository = connection.getRepository(Customer);

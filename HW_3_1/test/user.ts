@@ -1,24 +1,31 @@
 import App from "../src/app";
-import chai from "chai";
-var expect = require("chai").expect;
+import chai, { expect } from "chai";
 import chaiHttp from "chai-http";
 import { DatabaseCredentials } from "../src/database/index";
 
 chai.use(chaiHttp);
-
 let should = chai.should();
-let myApp = new App();
-let server = myApp.expApp;
+
 let databaseCredentials: DatabaseCredentials = {
-  type: 'postgres',
-  database: 'zicztuyh',
-  username: 'zicztuyh',
-  password: '1O7JGw1E2NFAoUjbeAQcValRGTiQv6by',
-  host: 'balarama.db.elephantsql.com',
+  type: "postgres",
+  database: "zicztuyh",
+  username: "zicztuyh",
+  password: "1O7JGw1E2NFAoUjbeAQcValRGTiQv6by",
+  host: "balarama.db.elephantsql.com",
   port: 5432
 };
 
-myApp.serverStart(3000,databaseCredentials);
+let myApp = new App(3000, databaseCredentials);
+let server = myApp.expApp;
+myApp.serverStart();
+
+describe("Connect to DB and add New user", () => {
+  it("db.connection.connect should", done => {
+    expect(myApp.db.connectionStatus.code).to.equal(200);
+  });
+
+});
+
 
 describe('Users CRUD', () => {
 
@@ -74,3 +81,4 @@ describe('Users validation', () => {
         });
     });
 });
+
