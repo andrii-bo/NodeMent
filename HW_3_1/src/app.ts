@@ -10,8 +10,10 @@ export default class App {
   public db: DatabaseProvider;
   public expApp: express.Application = express();
   public port: number;
-  public async serverStart() {
-    await this.db.connect().then(() => {
+
+  public serverStart(): Promise<any> {
+    return this.db.connect()
+    .then(() => {
       if (this.db.connectionStatus.code === 200) {
         console.log("  Connected to database " + this.db.connection);
         this.expApp.listen(this.port, () => {
