@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "test": "ts-mocha test/*.ts",
-    "build": "tsc",
+    "build": "npm run clean && tsc",
     "dev": "ts-node server.ts",
     "start": "ts-node src/server.ts",
     "testrun": "ts-node src/debug.ts",
@@ -32,6 +32,7 @@
     "chai-http": "^4.3.0",
     "mocha": "^7.0.0",
     "pg": "^7.18.1",
+    "rimraf": "^3.0.1",
     "ts-mocha": "^6.0.0",
     "ts-node": "^8.5.4",
     "typeorm": "^0.2.22",

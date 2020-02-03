@@ -1,5 +1,5 @@
 import { iGetParams, iExecResult } from "../utils";
-import { iEntity } from "../models/entityMdl";
+import { iEntity } from "../entity/Entity";
 import App from "../app";
 import { DatabaseProvider } from "../database/index";
 

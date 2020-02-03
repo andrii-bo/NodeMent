@@ -1,7 +1,7 @@
 import express from "express";
 import { Request, Response } from "express";
 import { DmlService } from "../services/dmlService";
-import { iEntity } from "../models/entityMdl";
+import { iEntity } from "../entity/Entity";
 import { lstCRUD, iExecResult, iGetParams, retError } from "../utils";
 import App from "../app";
 

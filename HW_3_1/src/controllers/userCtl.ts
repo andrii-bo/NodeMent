@@ -1,6 +1,5 @@
-import express from "express";
 import { Controller } from "./controller";
-import { IUser } from "models/userMdl";
+import { IUser } from "entity/User";
 import { DmlService } from "services/dmlService";
 import App from "../app";
 

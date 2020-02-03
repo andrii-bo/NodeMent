@@ -1,6 +1,6 @@
 import { DmlService } from "./dmlService";
 import uuid from "uuid";
-import { userSchema, IUser } from "../models/userMdl";
+import { userSchema, IUser } from "../entity/User";
 import Joi from "@hapi/joi";
 import {  iExecResult, retResult, retError, iGetParams } from "../utils";
 import { TUser } from "../entity/User";
@@ -16,11 +16,11 @@ export class UserSrv extends DmlService {
     lUser.id = uuid.v1();
 
     if (this.db.connectionStatus.code === 200) {
-      //let newUser: TUser = new TUser(lUser);
+      let newUser: TUser = new TUser(lUser);
       const userRepository = this.db.connection.getRepository(TUser);
-      const user = userRepository.create()
-      user.id="1";
-      userRepository.save(user);
+//      const user = userRepository.create()
+//      user.id="1";
+      userRepository.save(newUser);
     }
 
     this.mergeUser(lUser, lUser.id);

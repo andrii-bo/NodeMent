@@ -1,4 +1,4 @@
-import { PrimaryGeneratedColumn, Column, Entity, OneToMany, PrimaryColumn } from "typeorm";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 
 export interface iEntity {
     id?: string;
@@ -12,8 +12,8 @@ export interface iEntities {
 @Entity()
 export class TEntity {
 
-    @Column()
-    public id: string;
+    @PrimaryColumn()
+    id: string; 
 
     @Column()
     public is_deleted: boolean;
