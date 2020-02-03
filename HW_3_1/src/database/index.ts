@@ -1,5 +1,4 @@
 import { Connection, createConnection } from "typeorm";
-import { TUser } from "../models/userMdl";
 import { iExecResult, retResult, retError } from "../utils";
 
 export interface DatabaseCredentials {
@@ -15,7 +14,7 @@ export interface DatabaseCredentials {
 export class DatabaseProvider {
   public connection: Connection;
   public connectionStatus: iExecResult;
-  private creds: DatabaseCredentials;
+  public creds: DatabaseCredentials;
 
   constructor(databaseCredentials: DatabaseCredentials) {
     this.creds = databaseCredentials;

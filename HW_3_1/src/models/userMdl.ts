@@ -1,6 +1,6 @@
 import Joi from '@hapi/joi';
 import { iEntity, TEntity } from "./entityMdl";
-import { Column, Entity } from "typeorm";
+import { Column, Entity, EntityRepository, Repository  } from "typeorm";
 
 export const userSchema: Joi.ObjectSchema = Joi.object({
     id: Joi.string().required(),
@@ -18,7 +18,14 @@ export interface IUser extends iEntity {
 
 
 @Entity()
-export class TUser extends TEntity {
+export class TUser /*extends TEntity*/ {
+
+    @Column()
+    public id: string;
+
+    @Column()
+    public is_deleted: boolean;
+    
     @Column()
     public login: string;
 
@@ -27,11 +34,19 @@ export class TUser extends TEntity {
 
     @Column()
     public age: number;
-
+/*
     constructor(entity: IUser) {
         super(entity);
         this.age = entity.age;
         this.login = entity.login;
         this.password = entity.password;
+    }
+*/    
+}
+
+@EntityRepository(TUser)
+export class UserRepository extends Repository<TUser> {
+    findByLogin(login: string) {
+        return this.findOne({ login });
     }
 }

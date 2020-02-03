@@ -15,7 +15,7 @@ export default class App {
     return this.db.connect()
     .then(() => {
       if (this.db.connectionStatus.code === 200) {
-        console.log("  Connected to database " + this.db.connection);
+        console.log("  Connected to database " + this.db.creds.database);
         this.expApp.listen(this.port, () => {
           console.log("  Press CTRL-C to stop\n");
         });

@@ -17,9 +17,7 @@ let myApp = new App(3000, databaseCredentials);
 let server = myApp.expApp;
 
 myApp.serverStart().then(() => {
-  console.log(myApp.db.connectionStatus);
-
-  if (myApp.db.connectionStatus.code === 200) {
+    if (myApp.db.connectionStatus.code === 200) {
     console.log("  Database connected ");
   }
 

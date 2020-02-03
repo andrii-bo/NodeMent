@@ -1,8 +1,10 @@
 import { DmlService } from "./dmlService";
 import uuid from "uuid";
-import { userSchema, IUser, TUser } from "../models/userMdl";
+import { userSchema, IUser, TUser ,UserRepository } from "../models/userMdl";
 import Joi from "@hapi/joi";
-import { iGetParams, iExecResult, retResult, retError } from "../utils";
+import {  iExecResult, retResult, retError, iGetParams } from "../utils";
+import { getRepository, getCustomRepository } from "typeorm";
+
 
 export class UserSrv extends DmlService {
   private schemaValidation: Joi.ObjectSchema = userSchema;
@@ -14,20 +16,16 @@ export class UserSrv extends DmlService {
     lUser.id = uuid.v1();
 
     if (this.db.connectionStatus.code === 200) {
-      const newUser = new TUser(lUser);
-      this.db.connection.getRepository("hw_user").save(newUser);
+      //let newUser: TUser = new TUser(lUser);
+      const userRepository = getCustomRepository(UserRepository);
+      const user = userRepository.create()
+      user.id="1";
+      userRepository.save(user);
     }
 
-    return this.mergeUser(lUser, lUser.id);
-    /*
-       const newCustomer = new Customer();
-        newCustomer.firstName = customer.firstName;
-        newCustomer.lastName = customer.lastName;
-
-        const connection = await DatabaseProvider.getConnection();
-        return await connection.getRepository(Customer).save(newCustomer)
-    */
-  }
+    this.mergeUser(lUser, lUser.id);
+    return retResult(lUser);
+  };
 
   get(getParams: iGetParams): IUser[] {
     let resUsers: IUser[] = [];
@@ -59,10 +57,6 @@ export class UserSrv extends DmlService {
 
     return resUsers;
 
-    /*
-        const connection = await DatabaseProvider.getConnection();
-        return await connection.getRepository(Customer).find();
-        */
   }
 
   update(entity: IUser) {
@@ -80,14 +74,7 @@ export class UserSrv extends DmlService {
       this.keyEntity = this.entities[pId];
     }
     return retResult(this.entities[pId]);
-    /*
-        const connection = await DatabaseProvider.getConnection();
-        const repository = connection.getRepository(Customer);
-        const entity = await repository.findOneById(customer.id);
-        entity.firstName = customer.firstName;
-        entity.lastName = customer.lastName;
-        return await repository.save(entity);
-        */
+    
   }
 
   delete(id: string) {
