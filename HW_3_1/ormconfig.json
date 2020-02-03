@@ -1,0 +1,13 @@
+    {
+        "name": "postgree_main",
+        "type": "postgres",
+        "host": "balarama.db.elephantsql.com",
+        "port": 5432,
+        "username": "zicztuyh",
+        "password": "1O7JGw1E2NFAoUjbeAQcValRGTiQv6by",
+        "database": "zicztuyh",
+        "entities": [
+            "src/entity/**/*.ts"            
+        ],
+        "autoSchemaSync": true
+    }

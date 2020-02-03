@@ -1,35 +1,18 @@
 import { Connection, createConnection } from "typeorm";
 import { iExecResult, retResult, retError } from "../utils";
 
-export interface DatabaseCredentials {
-  type: "postgres" | "mysql" | "mssql";
-  host: string;
-  port: number;
-  username: string;
-  password: string;
-  database: string;
-  ssl?: boolean;
-}
-
 export class DatabaseProvider {
   public connection: Connection;
   public connectionStatus: iExecResult;
-  public creds: DatabaseCredentials;
+  public connectionName: string;
 
-  constructor(databaseCredentials: DatabaseCredentials) {
-    this.creds = databaseCredentials;
+  constructor(connectionName: string) {
+    this.connectionName = connectionName;
   }
 
   public async connect() {
     if (!this.connection) {
-      await createConnection({
-        type: this.creds.type,
-        host: this.creds.host,
-        port: this.creds.port,
-        username: this.creds.username,
-        password: this.creds.password,
-        database: this.creds.database
-      })
+      await createConnection(this.connectionName)
         .then(connection => {
           this.connection = connection;
           this.connectionStatus = retResult(this.connection);

@@ -16,16 +16,10 @@ export interface IUser extends iEntity {
     age?: number;
 }
 
-
+/*
 @Entity()
-export class TUser /*extends TEntity*/ {
-
-    @Column()
-    public id: string;
-
-    @Column()
-    public is_deleted: boolean;
-    
+export class TUser extends TEntity {
+   
     @Column()
     public login: string;
 
@@ -34,14 +28,14 @@ export class TUser /*extends TEntity*/ {
 
     @Column()
     public age: number;
-/*
+
     constructor(entity: IUser) {
         super(entity);
         this.age = entity.age;
         this.login = entity.login;
         this.password = entity.password;
     }
-*/    
+
 }
 
 @EntityRepository(TUser)
@@ -50,3 +44,4 @@ export class UserRepository extends Repository<TUser> {
         return this.findOne({ login });
     }
 }
+*/

@@ -1,7 +1,7 @@
 import express from "express";
 import { Request, Response } from "express";
 import { ControllersSet } from "./controllers/controllersSet";
-import { DatabaseProvider, DatabaseCredentials } from "./database/index";
+import { DatabaseProvider } from "./database/index";
 
 export default class App {
   private curRequest: Request;
@@ -15,7 +15,7 @@ export default class App {
     return this.db.connect()
     .then(() => {
       if (this.db.connectionStatus.code === 200) {
-        console.log("  Connected to database " + this.db.creds.database);
+        console.log("  Connected to database " + this.db.connectionName);
         this.expApp.listen(this.port, () => {
           console.log("  Press CTRL-C to stop\n");
         });
@@ -28,7 +28,7 @@ export default class App {
     });
   }
 
-  constructor(port: number, databaseCredentials: DatabaseCredentials) {
+  constructor(port: number, connectionName: String) {
     this.expApp.use(express.json());
     this.expApp.use(express.urlencoded({ extended: true }));
     this.expApp.use((req, res, next) => {
@@ -36,7 +36,7 @@ export default class App {
       next();
     });
     this.port = port;
-    this.db = new DatabaseProvider(databaseCredentials);
+    this.db = new DatabaseProvider('postgree_main');
     this.controllersSet = new ControllersSet(this);
   }
 }

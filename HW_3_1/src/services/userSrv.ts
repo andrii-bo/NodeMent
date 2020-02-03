@@ -1,9 +1,9 @@
 import { DmlService } from "./dmlService";
 import uuid from "uuid";
-import { userSchema, IUser, TUser ,UserRepository } from "../models/userMdl";
+import { userSchema, IUser } from "../models/userMdl";
 import Joi from "@hapi/joi";
 import {  iExecResult, retResult, retError, iGetParams } from "../utils";
-import { getRepository, getCustomRepository } from "typeorm";
+import { TUser } from "../entity/User";
 
 
 export class UserSrv extends DmlService {
@@ -17,7 +17,7 @@ export class UserSrv extends DmlService {
 
     if (this.db.connectionStatus.code === 200) {
       //let newUser: TUser = new TUser(lUser);
-      const userRepository = getCustomRepository(UserRepository);
+      const userRepository = this.db.connection.getRepository(TUser);
       const user = userRepository.create()
       user.id="1";
       userRepository.save(user);
