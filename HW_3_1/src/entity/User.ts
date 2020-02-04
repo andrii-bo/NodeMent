@@ -1,6 +1,6 @@
-import { Column, Entity, PrimaryColumn  } from "typeorm";
+import { Column, Entity, PrimaryColumn ,BaseEntity } from "typeorm";
 import Joi from '@hapi/joi';
-import { iEntity, TEntity } from "../entity/Entity";
+import { iEntity} from "../entity/Entity";
 
 export const userSchema: Joi.ObjectSchema = Joi.object({
     id: Joi.string().required(),
@@ -17,14 +17,14 @@ export interface IUser extends iEntity {
 }
 
 @Entity("hw_user")
-export class TUser extends TEntity {
+export class TUser extends BaseEntity {
 
     @PrimaryColumn()
-    public id: string;
+    id: string; 
 
     @Column()
     public is_deleted: boolean;
-    
+
     @Column()
     public login: string;
 
@@ -34,11 +34,27 @@ export class TUser extends TEntity {
     @Column()
     public age: number;
 
-    constructor(entity: IUser) {
-        super(entity);
+    static findByLogin(login: string) {
+        return this.createQueryBuilder("u")
+            .where("u.login like '%:firstName%'", { login })
+            .getMany();
+    };
+    
+    public assign(entity: IUser) {
+        this.id=entity.id;
+        this.is_deleted=entity.isDeleted; 
         this.age = entity.age;
         this.login = entity.login;
         this.password = entity.password;
     }
 
+/*
+    constructor(entity: IUser) {
+        this.id=entity.id;
+        this.is_deleted=entity.isDeleted; 
+        this.age = entity.age;
+        this.login = entity.login;
+        this.password = entity.password;
+    }
+*/
 }

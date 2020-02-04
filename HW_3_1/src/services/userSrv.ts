@@ -2,9 +2,8 @@ import { DmlService } from "./dmlService";
 import uuid from "uuid";
 import { userSchema, IUser } from "../entity/User";
 import Joi from "@hapi/joi";
-import {  iExecResult, retResult, retError, iGetParams } from "../utils";
+import { iExecResult, retResult, retError, iGetParams } from "../utils";
 import { TUser } from "../entity/User";
-
 
 export class UserSrv extends DmlService {
   private schemaValidation: Joi.ObjectSchema = userSchema;
@@ -14,15 +13,6 @@ export class UserSrv extends DmlService {
 
     lUser.isDeleted = false;
     lUser.id = uuid.v1();
-
-    if (this.db.connectionStatus.code === 200) {
-      let newUser: TUser = new TUser(lUser);
-      const userRepository = this.db.connection.getRepository(TUser);
-//      const user = userRepository.create()
-//      user.id="1";
-      userRepository.save(newUser);
-    }
-
     this.mergeUser(lUser, lUser.id);
     return retResult(lUser);
   };
@@ -54,9 +44,7 @@ export class UserSrv extends DmlService {
     } else {
       resUsers = lSortUsers;
     }
-
     return resUsers;
-
   }
 
   update(entity: IUser) {
@@ -73,11 +61,24 @@ export class UserSrv extends DmlService {
       this.key_id = pId;
       this.keyEntity = this.entities[pId];
     }
+    if (this.db.connectionStatus.code === 200) {
+      let dbUser: TUser = new TUser();
+      const userRepository = this.db.connection.getRepository(TUser);
+      dbUser.assign(entity);
+      userRepository.save(dbUser);
+    }
     return retResult(this.entities[pId]);
-    
+
   }
 
   delete(id: string) {
     this.entities[id].isDeleted = false;
+    if (this.db.connectionStatus.code === 200) {
+      let dbUser: TUser = new TUser();
+      const userRepository = this.db.connection.getRepository(TUser);
+      dbUser.assign(this.entities[id]);
+      userRepository.save(dbUser);
+    }
+
   }
 }
