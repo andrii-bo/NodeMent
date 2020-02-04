@@ -1,57 +1,63 @@
 import { DmlService } from "./dmlService";
 import uuid from "uuid";
-import { userSchema, IUser } from "../entity/User";
+import { userSchema, TUser } from "../entity/User";
 import Joi from "@hapi/joi";
 import { iExecResult, retResult, retError, iGetParams } from "../utils";
-import { TUser } from "../entity/User";
+import { Repository } from "typeorm";
 
-export class UserSrv extends DmlService {
-  private schemaValidation: Joi.ObjectSchema = userSchema;
+export class UserSrv extends DmlService<TUser> {  
+  private schemaValidation: Joi.ObjectSchema = userSchema;    
 
-  add(entity: IUser): iExecResult {
-    let lUser: IUser = entity;
+  add(entity: TUser): iExecResult {
+    entity.is_deleted = false;
+    entity.id = uuid.v1();
+    this.mergeUser(entity, entity.id);
+    return retResult(entity);
+  }
 
-    lUser.isDeleted = false;
-    lUser.id = uuid.v1();
-    this.mergeUser(lUser, lUser.id);
-    return retResult(lUser);
-  };
-
-  get(getParams: iGetParams): IUser[] {
-    let resUsers: IUser[] = [];
+  get(getParams: iGetParams): TUser[] {
+    let resUsers: TUser[] = [];
     let isLimit: boolean = false;
     let isFilter: boolean = false;
-    let lSortUsers: IUser[] = [];
+    let lSortUsers: TUser[] = [];
+
     if (getParams.limit) isLimit = true;
     else isLimit = false;
     if (getParams.filter) isFilter = true;
     else isFilter = false;
 
-    for (let lKey in this.entities) {
-      if (isFilter) {
-        if (this.entities[lKey].login.includes(getParams.filter))
-          lSortUsers.push(this.entities[lKey]);
-      } else lSortUsers.push(this.entities[lKey]);
-    }
-    if (isLimit) lSortUsers.splice(getParams.limit);
-
-    lSortUsers.sort((a, b) => {
-      return a.login.localeCompare(b.login);
-    });
-
-    if (this.is_key_id) {
-      resUsers.push(this.keyEntity);
+    if (this.db.connectionStatus.code === 200) {
+      for (let lKey in this.dbRepository.find()) {
+        lSortUsers.push;
+      }
     } else {
-      resUsers = lSortUsers;
+      for (let lKey in this.entities) {
+        if (isFilter) {
+          if (this.entities[lKey].login.includes(getParams.filter))
+            lSortUsers.push(this.entities[lKey]);
+        } else lSortUsers.push(this.entities[lKey]);
+      }
+      if (isLimit) lSortUsers.splice(getParams.limit);
+
+      lSortUsers.sort((a, b) => {
+        return a.login.localeCompare(b.login);
+      });
+
+      if (this.is_key_id) {
+        resUsers.push(<TUser>this.keyEntity);
+      } else {
+        resUsers = lSortUsers;
+      }
     }
     return resUsers;
   }
 
-  update(entity: IUser) {
+  update(entity: TUser) {
     return this.mergeUser(entity, this.key_id);
   }
 
-  mergeUser(entity: IUser, pId: string): iExecResult {
+  mergeUser(entity: TUser, pId: string): iExecResult {
+    
     let validateRes: Joi.ValidationResult;
     validateRes = this.schemaValidation.validate(entity);
     if (validateRes.error) {
@@ -62,23 +68,17 @@ export class UserSrv extends DmlService {
       this.keyEntity = this.entities[pId];
     }
     if (this.db.connectionStatus.code === 200) {
-      let dbUser: TUser = new TUser();
       const userRepository = this.db.connection.getRepository(TUser);
-      dbUser.assign(entity);
-      userRepository.save(dbUser);
+      userRepository.save(entity);
     }
     return retResult(this.entities[pId]);
-
   }
 
   delete(id: string) {
     this.entities[id].isDeleted = false;
     if (this.db.connectionStatus.code === 200) {
       let dbUser: TUser = new TUser();
-      const userRepository = this.db.connection.getRepository(TUser);
-      dbUser.assign(this.entities[id]);
-      userRepository.save(dbUser);
+      this.dbRepository.save(this.entities[id]);
     }
-
   }
 }

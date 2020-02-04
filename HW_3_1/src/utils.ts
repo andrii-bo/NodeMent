@@ -6,7 +6,7 @@ export enum lstCRUD {
 }
 
 export interface iExecResult {
-  code: number;
+  code?: number;
   message?: string;
   stack?: string;
   request?: string;

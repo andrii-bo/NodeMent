@@ -1,28 +1,28 @@
 import { iGetParams, iExecResult } from "../utils";
-import { iEntity } from "../entity/Entity";
 import App from "../app";
 import { DatabaseProvider } from "../database/index";
+import { TUser } from "../entity/User";
 
-export abstract class DmlService {
-  abstract add(entity: iEntity): iExecResult;
-  abstract get(getParams: iGetParams): iEntity[];
-  abstract update(entity: iEntity, id: string): iExecResult;
+export abstract class DmlService<T> {
+  abstract add(entity: T): iExecResult;
+  abstract get(getParams: iGetParams): T[];
+  abstract update(entity: T, id: string): iExecResult;
   abstract delete(id: string): void;
   protected key_id: string;
-  protected keyEntity: iEntity;
+  protected keyEntity: any;
   protected is_key_id: boolean = false;
-  public entities: iEntity = <iEntity>{};
+  public entities: T[];
   public db: DatabaseProvider;
+  protected dbRepository ;  
 
-  public init(getParams?: iGetParams) {
+  public init(main: App, getParams?: iGetParams) {
     if (getParams.id) {
       this.key_id = getParams.id;
       this.keyEntity = this.entities[this.key_id];
       this.is_key_id = true;
+      this.db =  main.db;    
+      this.dbRepository = this.db.connection.getRepository(TUser);          
     }
   }
 
-  constructor(main: App) {
-    this.db =  main.db;    
-  }
 }

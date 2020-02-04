@@ -1,6 +1,7 @@
 export interface iEntity {
     id?: string;
-    isDeleted?: boolean;
+    is_deleted?: boolean;
+    assign(entity: any):void;
 }
 
 export interface iEntities {
