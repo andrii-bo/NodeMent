@@ -14,22 +14,21 @@ export class Controller<T> {
   protected async runDml(req: Request, res: Response, crudType: lstCRUD) {
     let result: iExecResult = {};
     let resEntity: T;
-    let reqEntity: T = <T>req.body;
     let resEntities: Array<T> = new Array<T>();
     result.request = <string>req.body;
     try {
       let getParams: iGetParams = {};
-      console.log({
-        operation: crudType,
-        request: reqEntity
-      });
       getParams.id = req.params["id"];
       getParams.filter = req.query["filter"];
       getParams.limit = req.query["limit"];
-      this.srv.init(getParams);
+      getParams.entity=<T>req.body;
+      getParams.crudOp=crudType;
+
+      console.log(getParams);
+
       switch (crudType) {
         case lstCRUD.Create:
-          result = this.srv.add(reqEntity);
+          result = this.srv.merge(getParams);
           resEntity = result.result;
           res.status(result.code).json(resEntity);
           break;
@@ -38,7 +37,7 @@ export class Controller<T> {
           res.status(200);
           break;
         case lstCRUD.Update:
-          result = this.srv.update(reqEntity, getParams.id);
+          result = this.srv.merge(getParams);
           resEntity = result.result;
           res.status(result.code).json(resEntity);
           break;
@@ -55,7 +54,7 @@ export class Controller<T> {
 
   protected mapRoutesToEntity(entityName: string, expApp: express.Application) {
     expApp.route("/").get((req: Request, res: Response) => {
-      res.status(200).send({ message: "GET request successfulll!" });
+      res.status(200).send({ message: "GET request successfull!" });
     });
 
     expApp

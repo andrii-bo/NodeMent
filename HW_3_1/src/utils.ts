@@ -44,4 +44,6 @@ export interface iGetParams {
   id?:string;
   limit?: number;
   filter?: string;
+  entity?: any;
+  crudOp?:lstCRUD;
 }
