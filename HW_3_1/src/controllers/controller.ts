@@ -1,29 +1,32 @@
+import express from "express";
 import { Request, Response } from "express";
 import { DmlService } from "../services/dmlService";
 import { lstCRUD, iExecResult, iGetParams, retError, retResult } from "../utils";
 import App from "../app";
 
-export abstract class Controller<T> {
+export class Controller<T> {
   protected srv: DmlService<T>;
-  protected main: App;
-  constructor(main: App, srv: DmlService<T>) {
-    this.main = main;
+  constructor(expApp: express.Application, srv: DmlService<T>, entityName: string) {
     this.srv = srv;
+    this.mapRoutesToEntity(entityName, expApp);    
   }
 
   protected async runDml(req: Request, res: Response, crudType: lstCRUD) {
-    let result: iExecResult={};
+    let result: iExecResult = {};
     let resEntity: T;
     let reqEntity: T = <T>req.body;
     let resEntities: Array<T> = new Array<T>();
     result.request = <string>req.body;
     try {
       let getParams: iGetParams = {};
-      console.log({ operation: crudType });
+      console.log({
+        operation: crudType,
+        request: reqEntity
+      });
       getParams.id = req.params["id"];
       getParams.filter = req.query["filter"];
       getParams.limit = req.query["limit"];
-      this.srv.init(this.main, getParams);
+      this.srv.init(getParams);
       switch (crudType) {
         case lstCRUD.Create:
           result = this.srv.add(reqEntity);
@@ -50,12 +53,12 @@ export abstract class Controller<T> {
     }
   }
 
-  protected mapRoutesToEntity(entityName: string) {
-    this.main.expApp.route("/").get((req: Request, res: Response) => {
+  protected mapRoutesToEntity(entityName: string, expApp: express.Application) {
+    expApp.route("/").get((req: Request, res: Response) => {
       res.status(200).send({ message: "GET request successfulll!" });
     });
 
-    this.main.expApp
+    expApp
       .route("/" + entityName)
       .get(async (req: Request, res: Response) => {
         this.runDml(req, res, lstCRUD.Read);
@@ -64,7 +67,7 @@ export abstract class Controller<T> {
         this.runDml(req, res, lstCRUD.Create);
       });
 
-    this.main.expApp
+    expApp
       .route("/" + entityName + "/:id")
       .get((req: Request, res: Response) => this.runDml(req, res, lstCRUD.Read))
       .put((req: Request, res: Response) =>

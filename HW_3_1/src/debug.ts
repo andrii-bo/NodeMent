@@ -34,4 +34,6 @@ myApp.serverStart().then(() => {
     .end((err, res) => {
       console.log(res.body);
     });
+
 });
+

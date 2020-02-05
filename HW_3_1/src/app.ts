@@ -15,7 +15,7 @@ export default class App {
     return this.db.connect()
     .then(() => {
       if (this.db.connectionStatus.code === 200) {
-        console.log("  Connected to database " + this.db.connectionName);
+        console.log("  !!! Connected to database " + this.db.connectionName);
         this.expApp.listen(this.port, () => {
           console.log("  Press CTRL-C to stop\n");
         });
@@ -28,7 +28,16 @@ export default class App {
     });
   }
 
-  constructor(port: number, connectionName: String) {
+  constructor(port: number, connectionName: string) {
+
+    process
+    .on('unhandledRejection', (reason, p) => {
+      console.error(reason, ' Unhandled !!! Rejection at Promise', p);
+    })
+    .on('uncaughtException', err => {
+      console.error(err, ' Uncaught !!! Exception thrown');
+    });
+
     this.expApp.use(express.json());
     this.expApp.use(express.urlencoded({ extended: true }));
     this.expApp.use((req, res, next) => {
@@ -36,7 +45,7 @@ export default class App {
       next();
     });
     this.port = port;
-    this.db = new DatabaseProvider('postgree_main');
+    this.db = new DatabaseProvider(connectionName);
     this.controllersSet = new ControllersSet(this);
   }
 }

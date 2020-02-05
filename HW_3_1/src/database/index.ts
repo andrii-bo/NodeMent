@@ -19,6 +19,7 @@ export class DatabaseProvider {
         })
         .catch(error => {
           this.connectionStatus = retError(502, error);
+          console.log(error.stack);
         });
     }
   }

@@ -1,6 +1,5 @@
 import { Column, Entity, PrimaryColumn, BaseEntity } from "typeorm";
 import Joi from "@hapi/joi";
-import { iEntity } from "./Entity";
 
 export const userSchema: Joi.ObjectSchema = Joi.object({
   id: Joi.string().required(),
@@ -15,12 +14,11 @@ export const userSchema: Joi.ObjectSchema = Joi.object({
     .min(4)
     .max(130)
     .required(),
-  isDeleted: Joi.bool().required()
+  is_deleted: Joi.bool().required()
 });
 
-
 @Entity("hw_user")
-export class TUser extends BaseEntity implements iEntity{
+export class TUser extends BaseEntity {
   @PrimaryColumn()
   id: string;
 
@@ -49,4 +47,8 @@ export class TUser extends BaseEntity implements iEntity{
       .where("u.login like '%:firstName%'", { login })
       .getMany();
   }
+}
+
+export interface Users {
+  [id: string]: TUser;
 }
