@@ -1,6 +1,7 @@
 import App from "../src/app";
 import chai from "chai";
 import chaiHttp from "chai-http";
+import { print_info } from "./utils";
 
 chai.use(chaiHttp);
 
@@ -8,7 +9,7 @@ let myApp = new App(3000, 'postgree_main');
 let server = myApp.expApp;
 
 myApp.serverStart().then(() => {
-    if (myApp.db.connectionStatus.code === 200) {
+  if (myApp.db.connectionStatus.code === 200) {
     console.log("  Database connected ");
   }
 
@@ -20,20 +21,47 @@ myApp.serverStart().then(() => {
     age: 25
   };
 
-  chai
-    .request(server)
-    .post("/user")
+
+  let chr = chai.request(server);
+
+  chr
+    .post('/user')
     .send(user)
     .end((err, res) => {
-      console.log(res.body);
+      print_info("RESPONSE post /user", res.body);
     });
 
-  chai
-    .request(server)
-    .get("/user")
+  chr
+    .get('/user')
     .end((err, res) => {
-      console.log(res.body);
+      print_info("RESPONSE get /user", res.body);
+      process.exit(0);
     });
 
+  /*
+    chr
+      .post('/user')
+      .send(user)
+      .end((err, res) => {
+        print_info("RESPONSE post /user", res.body);
+      }).then(() => {
+        print_info("RESPONSE post /user END");
+      });
+  
+        chr
+      .post('/user')
+      .send(user)
+      .end((err, res) => {
+        print_info("RESPONSE post /user", res.body);
+      });
+  
+  */
+  /*
+    chr
+      .get('/user')
+      .end((err, res) => {
+        print_info("RESPONSE get /user", res.body);
+      });
+  */
 });
 

@@ -1,14 +1,14 @@
 import express from "express";
 import { Request, Response } from "express";
 import { DmlService } from "../services/dmlService";
-import { lstCRUD, iExecResult, iGetParams, retError, retResult } from "../utils";
+import { lstCRUD, iExecResult, iGetParams, retError, retResult, print_info } from "../utils";
 import App from "../app";
 
 export class Controller<T> {
-  protected srv: DmlService<T>;
-  constructor(expApp: express.Application, srv: DmlService<T>, entityName: string) {
+  protected srv: DmlService;
+  constructor(expApp: express.Application, srv: DmlService, entityName: string) {
     this.srv = srv;
-    this.mapRoutesToEntity(entityName, expApp);    
+    this.mapRoutesToEntity(entityName, expApp);
   }
 
   protected async runDml(req: Request, res: Response, crudType: lstCRUD) {
@@ -21,10 +21,9 @@ export class Controller<T> {
       getParams.id = req.params["id"];
       getParams.filter = req.query["filter"];
       getParams.limit = req.query["limit"];
-      getParams.entity=<T>req.body;
-      getParams.crudOp=crudType;
-
-      console.log(getParams);
+      getParams.entity = <T>req.body;
+      getParams.crudOp = crudType;
+      print_info("PARAMS", getParams);
 
       switch (crudType) {
         case lstCRUD.Create:
@@ -42,8 +41,7 @@ export class Controller<T> {
           res.status(result.code).json(resEntity);
           break;
         case lstCRUD.Read:
-          resEntities = this.srv.get(getParams);
-          res.status(200).json(resEntities);
+          res.status(200).json(await this.srv.get(getParams));
           break;
       }
     } catch (error) {
@@ -60,20 +58,20 @@ export class Controller<T> {
     expApp
       .route("/" + entityName)
       .get(async (req: Request, res: Response) => {
-        this.runDml(req, res, lstCRUD.Read);
+        await this.runDml(req, res, lstCRUD.Read);
       })
       .post(async (req: Request, res: Response) => {
-        this.runDml(req, res, lstCRUD.Create);
+        await this.runDml(req, res, lstCRUD.Create);
       });
 
     expApp
       .route("/" + entityName + "/:id")
       .get((req: Request, res: Response) => this.runDml(req, res, lstCRUD.Read))
-      .put((req: Request, res: Response) =>
-        this.runDml(req, res, lstCRUD.Update)
+      .put(async (req: Request, res: Response) =>
+        await this.runDml(req, res, lstCRUD.Update)
       )
-      .delete((req: Request, res: Response) =>
-        this.runDml(req, res, lstCRUD.Delete)
+      .delete(async (req: Request, res: Response) =>
+        await this.runDml(req, res, lstCRUD.Delete)
       );
   }
 }

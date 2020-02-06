@@ -15,14 +15,13 @@ export default class App {
     return this.db.connect()
     .then(() => {
       if (this.db.connectionStatus.code === 200) {
-        console.log("  !!! Connected to database " + this.db.connectionName);
         this.expApp.listen(this.port, () => {
           console.log("  Press CTRL-C to stop\n");
         });
       } else {
         console.log("ERROR  Can't connect to database " + this.db.connectionStatus.message);
         this.expApp.listen(this.port, () => {
-          console.log(" Application run in memory storage mode, Press CTRL-C to stop\n");
+          console.log(" Application beeing run in memory storage mode, Press CTRL-C to stop\n");
         });
       }
     });

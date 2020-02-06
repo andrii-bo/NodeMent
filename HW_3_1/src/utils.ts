@@ -27,6 +27,14 @@ export function retResult(
   return lResult;
 }
 
+export function print_info(
+  title: string,  
+  message?: any
+): void {
+  console.log("----------"+title+"--\\/---");      
+  console.log(message);
+}
+
 export function retError(
   pCode: number,
   pErr?: any,  

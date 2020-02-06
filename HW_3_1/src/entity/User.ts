@@ -1,5 +1,5 @@
+import  Joi  from "@hapi/joi";
 import { Column, Entity, PrimaryColumn, BaseEntity } from "typeorm";
-import Joi from "@hapi/joi";
 
 export const userSchema: Joi.ObjectSchema = Joi.object({
   id: Joi.string().required(),
