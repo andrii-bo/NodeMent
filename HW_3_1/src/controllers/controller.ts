@@ -11,7 +11,7 @@ export class Controller<T> {
     this.mapRoutesToEntity(entityName, expApp);
   }
 
-  protected async runDml(req: Request, res: Response, crudType: lstCRUD) {
+  protected runDml(req: Request, res: Response, crudType: lstCRUD) {
     let result: iExecResult = {};
     let resEntity: T;
     let resEntities: Array<T> = new Array<T>();
@@ -41,7 +41,9 @@ export class Controller<T> {
           res.status(result.code).json(resEntity);
           break;
         case lstCRUD.Read:
-          res.status(200).json(await this.srv.get(getParams));
+          this.srv.get(getParams)
+            .then(value => { print_info("record count", value.length); res.status(200).json(value) }, reason => print_info("users not found ERROR", reason))
+          //res.status(200).json(this.srv.get(getParams));
           break;
       }
     } catch (error) {

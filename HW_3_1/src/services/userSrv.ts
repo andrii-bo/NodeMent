@@ -2,17 +2,16 @@ import { DmlService } from "./dmlService";
 import uuid from "uuid";
 import { userSchema, TUser, Users } from "../entity/User";
 import Joi from "@hapi/joi";
-import { iExecResult, retResult, retError, iGetParams } from "../utils";
+import { iExecResult, retResult, retError, iGetParams, print_info } from "../utils";
 
 export class UserSrv extends DmlService {
-  private schemaValidation: Joi.ObjectSchema = userSchema;
+
   public entities: Users = {};
 
   public async get(getParams: iGetParams): Promise<TUser[]> {
     let resUsers: TUser[] = [];
     let isLimit: boolean = false;
     let isFilter: boolean = false;
-    let lSortUsers: TUser[] = [];
 
     if (getParams.limit) isLimit = true;
     else isLimit = false;
@@ -20,16 +19,34 @@ export class UserSrv extends DmlService {
     else isFilter = false;
 
     if (this.srvdb.connectionStatus.code === 200) {
-      resUsers = await this.srvdb.connection.getRepository(TUser).find();
-      if (this.key_id) {
-        resUsers.push(<TUser>this.entities[this.key_id]);
-      } else {
-        resUsers = lSortUsers;
-      }
 
+      //resUsers = await this.srvdb.connection.getRepository(TUser).find();
+      let q = this.srvdb.connection.getRepository(TUser).createQueryBuilder("u").select("u.*");
+      if (isFilter) {
+        let filter = getParams.filter;
+
+        q = q.where("login like :login1 ");
+        q.setNativeParameters({ login1: filter });
+      };
+      let str = q.getQueryAndParameters();
+      console.log(str);
+      resUsers = await q.getRawMany();
+      /*
+               resUsers = await this.srvdb.connection.getRepository(TUser).createQueryBuilder("u")
+              .select("*")
+              .getMany();
+      
+          };
+      /*
+          if (this.key_id) {
+            resUsers.push(<TUser>this.entities[this.key_id]);
+          } else {
+            resUsers = lSortUsers;
+          }
+      */
     };
     return resUsers;
-  }
+  };
 
   public merge(getParams: iGetParams): iExecResult {
     let entity: TUser = <TUser>getParams.entity;
@@ -38,8 +55,9 @@ export class UserSrv extends DmlService {
     if (!entity.id) entity.id = uuid.v1();
 
     console.log("Merge start: Database status " + this.srvdb.connectionName + " " + this.srvdb.connectionStatus.code);
+    let schemaValidation: Joi.ObjectSchema = userSchema;
     let validateRes: Joi.ValidationResult;
-    validateRes = this.schemaValidation.validate(entity);
+    validateRes = schemaValidation.validate(entity);
     if (validateRes.error) {
       console.log("validation error:" + validateRes.error.message);
       return retError(400, validateRes.error);

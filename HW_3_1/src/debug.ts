@@ -3,6 +3,7 @@ import chai from "chai";
 import chaiHttp from "chai-http";
 import { print_info } from "./utils";
 
+
 chai.use(chaiHttp);
 
 let myApp = new App(3000, 'postgree_main');
@@ -24,19 +25,23 @@ myApp.serverStart().then(() => {
 
   let chr = chai.request(server);
 
+  /*
   chr
     .post('/user')
     .send(user)
     .end((err, res) => {
       print_info("RESPONSE post /user", res.body);
     });
+*/
 
-  chr
-    .get('/user')
-    .end((err, res) => {
-      print_info("RESPONSE get /user", res.body);
-      process.exit(0);
-    });
+
+
+chr
+.get('/user')
+.query("filter='user3@mail.com'")
+.end((err, res) => {
+  print_info("RESPONSE get /user", res.body);
+});
 
   /*
     chr
