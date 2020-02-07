@@ -25,8 +25,8 @@ export class UserSrv extends DmlService {
       if (isFilter) {
         let filter = getParams.filter;
 
-        q = q.where("login like :login1 ");
-        q.setNativeParameters({ login1: filter });
+        q = q.where("login = :login1 ");
+        q.setParameter('login1', filter );
       };
       let str = q.getQueryAndParameters();
       console.log(str);
