@@ -21,15 +21,11 @@ export class UserSrv extends DmlService {
     if (this.srvdb.connectionStatus.code === 200) {
 
       //resUsers = await this.srvdb.connection.getRepository(TUser).find();
-      let q = this.srvdb.connection.getRepository(TUser).createQueryBuilder("u").select("u.*");
-      if (isFilter) {
-        let filter = getParams.filter;
-
-        q = q.where("login = :login1 ");
-        q.setParameter('login1', filter );
-      };
+      let q = this.srvdb.connection.getRepository(TUser).createQueryBuilder("u").select(" id, :login as login,password,age, is_deleted").orderBy("login");
+      if (isFilter) q = q.where("u.login like '%' || :login || '%'  ");
+      if (isLimit) q = q.limit(getParams.limit);
+      q.setParameters({ login: getParams.filter });
       let str = q.getQueryAndParameters();
-      console.log(str);
       resUsers = await q.getRawMany();
       /*
                resUsers = await this.srvdb.connection.getRepository(TUser).createQueryBuilder("u")

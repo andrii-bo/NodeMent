@@ -38,7 +38,7 @@ myApp.serverStart().then(() => {
 
 chr
 .get('/user')
-.query("filter='user3@mail.com'")
+.query("filter=user3@mail.com&limit=1")
 .end((err, res) => {
   print_info("RESPONSE get /user", res.body);
 });
