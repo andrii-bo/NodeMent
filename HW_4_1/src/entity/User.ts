@@ -1,9 +1,10 @@
-import  Joi  from "@hapi/joi";
-import { Column, Entity, PrimaryColumn, BaseEntity } from "typeorm";
+import Joi from "@hapi/joi";
+import { Column, Entity, BaseEntity } from "typeorm";
+import { TDimension } from "./Dimension";
 
 export const userSchema: Joi.ObjectSchema = Joi.object({
   id: Joi.string().required(),
-  login: Joi.string()
+  name: Joi.string()
     .regex(/^\w+/)
     .required(),
   password: Joi.string()
@@ -19,14 +20,8 @@ export const userSchema: Joi.ObjectSchema = Joi.object({
 
 @Entity("hw_user")
 export class TUser extends BaseEntity {
-  @PrimaryColumn()
-  id: string;
-
-  @Column()
-  public is_deleted: boolean;
-
-  @Column()
-  public login: string;
+  @Column(type => TDimension)
+  common: TDimension;
 
   @Column()
   public password: string;
@@ -34,21 +29,4 @@ export class TUser extends BaseEntity {
   @Column()
   public age: number;
 
-  public assign(entity: TUser) {
-    this.id = entity.id;
-    this.is_deleted = entity.is_deleted;
-    this.age = entity.age;
-    this.login = entity.login;
-    this.password = entity.password;
-  }
-
-  static findByLogin(login: string) {
-    return this.createQueryBuilder("u")
-      .where("u.login like '%:firstName%'", { login })
-      .getMany();
-  }
-}
-
-export interface Users {
-  [id: string]: TUser;
 }

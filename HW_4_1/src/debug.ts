@@ -25,15 +25,13 @@ myApp.serverStart().then(() => {
 
   let chr = chai.request(server);
 
-  /*
+  
   chr
     .post('/user')
     .send(user)
     .end((err, res) => {
       print_info("RESPONSE post /user", res.body);
     });
-*/
-
 
 
 chr
