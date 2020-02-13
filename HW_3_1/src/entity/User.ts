@@ -25,7 +25,7 @@ export class TUser extends BaseEntity {
   @Column()
   public is_deleted: boolean;
 
-  @Column()
+  @Column({name: "name"})
   public login: string;
 
   @Column()
