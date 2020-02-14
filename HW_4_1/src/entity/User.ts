@@ -19,9 +19,7 @@ export const userSchema: Joi.ObjectSchema = Joi.object({
 });
 
 @Entity("hw_user")
-export class TUser extends BaseEntity {
-  @Column(type => TDimension)
-  common: TDimension;
+export class TUser extends TDimension {
 
   @Column()
   public password: string;

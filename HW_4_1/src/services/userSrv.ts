@@ -5,7 +5,6 @@ import Joi from "@hapi/joi";
 import { iExecResult, retResult, retError, iGetParams } from "../utils";
 
 export class UserSrv extends DmlService {
-
   public async get(getParams: iGetParams): Promise<TUser[]> {
     let resUsers: TUser[] = [];
     let isLimit: boolean = false;
@@ -17,23 +16,32 @@ export class UserSrv extends DmlService {
     else isFilter = false;
 
     if (this.srvdb.connectionStatus.code === 200) {
-      let q = this.srvdb.connection.getRepository(TUser).createQueryBuilder("u").select(" id, name as login,password,age, is_deleted").orderBy("name");
+      let q = this.srvdb.connection
+        .getRepository(TUser)
+        .createQueryBuilder("u")
+        .select(" id, name as login,password,age, is_deleted")
+        .orderBy("name");
       if (isFilter) q = q.andWhere(" name like '%' || :login || '%'  ");
       if (isLimit) q = q.limit(getParams.limit);
       q.setParameters({ login: getParams.filter });
       let str = q.getQueryAndParameters();
       resUsers = await q.getRawMany();
-    };
+    }
     return resUsers;
-  };
+  }
 
   public merge(getParams: iGetParams): iExecResult {
     let entity: TUser = <TUser>getParams.entity;
     let key_id: string = getParams.id;
-    if (!entity.common.is_deleted) entity.common.is_deleted = false;
-    if (!entity.common.id) entity.common.id = uuid.v1();
+    if (!entity.is_deleted) entity.is_deleted = false;
+    if (!entity.id) entity.id = uuid.v1();
 
-    console.log("Merge start: Database status " + this.srvdb.connectionName + " " + this.srvdb.connectionStatus.code);
+    console.log(
+      "Merge start: Database status " +
+        this.srvdb.connectionName +
+        " " +
+        this.srvdb.connectionStatus.code
+    );
     let schemaValidation: Joi.ObjectSchema = userSchema;
     let validateRes: Joi.ValidationResult;
     validateRes = schemaValidation.validate(entity);
@@ -52,7 +60,13 @@ export class UserSrv extends DmlService {
 
   public delete(id: string) {
     if (this.srvdb.connectionStatus.code === 200) {
-      this.srvdb.connection.getRepository(TUser).createQueryBuilder().update(TUser).set({ common: { is_deleted: false } }).where("id = :id", { id: id }).execute();
+      this.srvdb.connection
+        .getRepository(TUser)
+        .createQueryBuilder()
+        .update(TUser)
+        .set({ is_deleted: false })
+        .where("id = :id", { id: id })
+        .execute();
     }
   }
 }

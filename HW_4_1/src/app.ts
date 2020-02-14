@@ -11,31 +11,31 @@ export default class App {
   public expApp: express.Application = express();
   public port: number;
 
-  public serverStart(): Promise<any> {
+  public async serverStart(): Promise<any> {
     return this.db.connect()
-    .then(() => {
-      if (this.db.connectionStatus.code === 200) {
-        this.expApp.listen(this.port, () => {
-          console.log("  Press CTRL-C to stop\n");
-        });
-      } else {
-        console.log("ERROR  Can't connect to database " + this.db.connectionStatus.message);
-        this.expApp.listen(this.port, () => {
-          console.log(" Application beeing run in memory storage mode, Press CTRL-C to stop\n");
-        });
-      }
-    });
+      .then(() => {
+        if (this.db.connectionStatus.code === 200) {
+          this.expApp.listen(this.port, () => {
+            console.log("Database connected, server listening.  Press CTRL-C to stop\n");
+          });
+        } else {
+          console.log("ERROR  Can't connect to database " + this.db.connectionStatus.message);
+          this.expApp.listen(this.port, () => {
+            console.log(" Application beeing run in memory storage mode,server listening. Press CTRL-C to stop\n");
+          });
+        }
+      });
   }
 
   constructor(port: number, connectionName: string) {
 
     process
-    .on('unhandledRejection', (reason, p) => {
-      console.error(reason, ' Unhandled !!! Rejection at Promise', p);
-    })
-    .on('uncaughtException', err => {
-      console.error(err, ' Uncaught !!! Exception thrown');
-    });
+      .on('unhandledRejection', (reason, p) => {
+        console.error(reason, ' Unhandled !!! Rejection at Promise', p);
+      })
+      .on('uncaughtException', err => {
+        console.error(err, ' Uncaught !!! Exception thrown');
+      });
 
     this.expApp.use(express.json());
     this.expApp.use(express.urlencoded({ extended: true }));

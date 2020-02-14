@@ -1,6 +1,6 @@
-import { Column, PrimaryColumn } from "typeorm";
+import { Column, PrimaryColumn, BaseEntity } from "typeorm";
 
-export abstract class TDimension {
+export abstract class TDimension extends BaseEntity{
     @PrimaryColumn()
     id: string;
 
