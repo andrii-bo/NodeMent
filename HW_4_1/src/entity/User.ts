@@ -1,10 +1,11 @@
 import Joi from "@hapi/joi";
-import { Column, Entity, BaseEntity } from "typeorm";
+import { Column, Entity } from "typeorm";
 import { TDimension } from "./Dimension";
+import { iExecResult, print_info, retError, retResult } from "../utils";
 
-export const userSchema: Joi.ObjectSchema = Joi.object({
+const userSchema: Joi.ObjectSchema = Joi.object({
   id: Joi.string().required(),
-  name: Joi.string()
+  login: Joi.string()
     .regex(/^\w+/)
     .required(),
   password: Joi.string()
@@ -27,4 +28,11 @@ export class TUser extends TDimension {
   @Column()
   public age: number;
 
+  public assign(reqAttrs: any): iExecResult {
+    reqAttrs.name = reqAttrs.login;
+    validated_res = 
+    super.assign(reqAttrs);
+
+  }
 }
+

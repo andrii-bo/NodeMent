@@ -18,22 +18,22 @@ function add_rndm_user_http(server: express.Application) {
   return chr
     .post('/user')
     .send(user)
-    .then((value) => print_info("RESPONSE post /user", value.body))
-    .catch((err) => print_info("ERROR post /user", err.message))
+    .then(value => print_info("RESPONSE post /user", value.body))
+    .catch(err => print_info("ERROR post /user", err.message))
 };
 
-async function get_all_users_http(server: express.Application) {
-  console.log("2:get_all_users_http");
+async function get_users_with_params_http(server: express.Application) {
+  console.log("2:get_users_with_params_http");
   let chr = chai.request(server);
   try {
     const value = await chr
       .get('/user')
       .query("filter=user3@mail.com&limit=1");
-    print_info("RESPONSE get all users with filters", value.body);
+    print_info("RESPONSE users with filters", value.body);
     return value;
   }
   catch (err) {
-    print_info("ERROR get all users", err.message);
+    print_info("ERROR users with filters", err.message);
     return err;
   }
 };
@@ -47,7 +47,7 @@ async function run_steps() {
   console.log("0:");
   await myApp.serverStart()
   await add_rndm_user_http(server);
-  await get_all_users_http(server);
+  await get_users_with_params_http(server);
   console.log("END:");
 };
 

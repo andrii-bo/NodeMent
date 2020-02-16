@@ -1,8 +1,7 @@
 import express from "express";
 import { Request, Response } from "express";
 import { DmlService } from "../services/dmlService";
-import { lstCRUD, iExecResult, iGetParams, retError, retResult, print_info } from "../utils";
-import App from "../app";
+import { lstCRUD, iExecResult, iGetParams, retError, print_info } from "../utils";
 
 export class Controller<T> {
   protected srv: DmlService;

@@ -2,7 +2,7 @@ import { DmlService } from "./dmlService";
 import uuid from "uuid";
 import { userSchema, TUser } from "../entity/User";
 import Joi from "@hapi/joi";
-import { iExecResult, retResult, retError, iGetParams } from "../utils";
+import { iExecResult, retResult, retError, iGetParams, print_info } from "../utils";
 
 export class UserSrv extends DmlService {
   public async get(getParams: iGetParams): Promise<TUser[]> {
@@ -32,24 +32,15 @@ export class UserSrv extends DmlService {
 
   public merge(getParams: iGetParams): iExecResult {
     let entity: TUser = <TUser>getParams.entity;
-    let key_id: string = getParams.id;
-    if (!entity.is_deleted) entity.is_deleted = false;
-    if (!entity.id) entity.id = uuid.v1();
 
-    console.log(
-      "Merge start: Database status " +
-        this.srvdb.connectionName +
-        " " +
-        this.srvdb.connectionStatus.code
-    );
     let schemaValidation: Joi.ObjectSchema = userSchema;
     let validateRes: Joi.ValidationResult;
     validateRes = schemaValidation.validate(entity);
     if (validateRes.error) {
-      console.log("validation error:" + validateRes.error.message);
+      print_info("validation error:" + validateRes.error.message, entity);
       return retError(400, validateRes.error);
     } else {
-      this.key_id = key_id;
+      this.key_id = entity.id;
       if (this.srvdb.connectionStatus.code === 200) {
         const userRepository = this.srvdb.connection.getRepository(TUser);
         userRepository.save(entity);

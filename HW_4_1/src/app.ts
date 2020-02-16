@@ -12,29 +12,40 @@ export default class App {
   public port: number;
 
   public async serverStart(): Promise<any> {
-    return this.db.connect()
+    let msg = "";
+    await this.db
+      .connect()
       .then(() => {
         if (this.db.connectionStatus.code === 200) {
-          this.expApp.listen(this.port, () => {
-            console.log("Database connected, server listening.  Press CTRL-C to stop\n");
-          });
+          msg = "Database connected, server listening.  Press CTRL-C to stop\n";
         } else {
-          console.log("ERROR  Can't connect to database " + this.db.connectionStatus.message);
-          this.expApp.listen(this.port, () => {
-            console.log(" Application beeing run in memory storage mode,server listening. Press CTRL-C to stop\n");
-          });
+          msg =
+            "ERROR  Can't connect to database " +
+            this.db.connectionStatus.message;
         }
+      })
+      .catch(err => {
+        console.log("DB ERROR CATCH", err.message);
+      })
+      .finally(() => {
+        console.log("DB finally");
       });
+
+    return new Promise(resolve => {
+      this.expApp.listen(this.port, () => {
+        console.log("app listen ", msg);
+        resolve();
+      });
+    });
   }
 
   constructor(port: number, connectionName: string) {
-
     process
-      .on('unhandledRejection', (reason, p) => {
-        console.error(reason, ' Unhandled !!! Rejection at Promise', p);
+      .on("unhandledRejection", (reason, p) => {
+        console.error(reason, " Unhandled !!! Rejection at Promise", p);
       })
-      .on('uncaughtException', err => {
-        console.error(err, ' Uncaught !!! Exception thrown');
+      .on("uncaughtException", err => {
+        console.error(err, " Uncaught !!! Exception thrown");
       });
 
     this.expApp.use(express.json());
