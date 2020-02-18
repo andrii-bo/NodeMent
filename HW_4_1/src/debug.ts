@@ -5,13 +5,7 @@ import chaiHttp from "chai-http";
 import { print_info } from "./utils";
 
 
-function add_rndm_user_http(server: express.Application) {
-  let rnd = Math.floor(Math.random() * 10);
-  let user = {
-    login: "user" + rnd + "@mail.com",
-    password: "12345" + rnd,
-    age: 25
-  };
+function add_user_http(server: express.Application, user: any) {
 
   console.log("1:add_rndm_user_http");
   let chr = chai.request(server);
@@ -46,7 +40,22 @@ async function run_steps() {
 
   console.log("0:");
   await myApp.serverStart()
-  await add_rndm_user_http(server);
+
+  let rnd = Math.floor(Math.random() * 10);
+  let user = {
+    login: "user" + rnd + "@mail.com",
+    password: "12345" + rnd,
+    age: 25
+  };
+  await add_user_http(server, user);
+/*
+  user = {
+    login: "user3@mail.com",
+    password: "12345" + rnd,
+    age: 25
+  };
+  await add_user_http(server, user);
+*/
   await get_users_with_params_http(server);
   console.log("END:");
 };

@@ -4,8 +4,8 @@ import { DmlService } from "../services/dmlService";
 import { lstCRUD, iExecResult, iGetParams, retError, print_info } from "../utils";
 
 export class Controller<T> {
-  protected srv: DmlService;
-  constructor(expApp: express.Application, srv: DmlService, entityName: string) {
+  protected srv: DmlService<T>;
+  constructor(expApp: express.Application, srv: DmlService<T>, entityName: string) {
     this.srv = srv;
     this.mapRoutesToEntity(entityName, expApp);
   }
@@ -13,7 +13,6 @@ export class Controller<T> {
   protected runDml(req: Request, res: Response, crudType: lstCRUD) {
     let result: iExecResult = {};
     let resEntity: T;
-    let resEntities: Array<T> = new Array<T>();
     result.request = <string>req.body;
     try {
       let getParams: iGetParams = {};

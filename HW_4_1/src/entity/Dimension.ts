@@ -18,7 +18,7 @@ export class TDimension extends BaseEntity {
 
     protected schema: Joi.ObjectSchema;
 
-    protected assign<T>(attrs: any): iExecResult {
+    public assign(attrs: any): iExecResult {
 
         if (!attrs.is_deleted) attrs.is_deleted = false;
         if (!attrs.id) attrs.id = uuid.v1();
@@ -28,17 +28,16 @@ export class TDimension extends BaseEntity {
             print_info("validation error:" + validateRes.error.message, attrs);
             return retError(400, validateRes.error);
         } else {
-            this.serialize<T>(attrs);
-            retResult(this);
+            this.serialize(attrs);
+            return retResult(attrs);
         }
     };
 
-    private serialize<T>(attrs: any): void {
+    protected serialize(attrs: any): void {
         this.id = attrs.id;
         this.is_deleted = attrs.is_deleted;
         this.name = attrs.name;
         this.description = attrs.description;
-        this = <TDimension>attrs;
     };
 
 }
