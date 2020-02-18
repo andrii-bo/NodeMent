@@ -1,16 +1,22 @@
 import express from "express";
 import { Request, Response } from "express";
-import { DmlService } from "../services/dmlService";
-import { lstCRUD, iExecResult, iGetParams, retError, print_info } from "../utils";
+import {
+  lstCRUD,
+  iExecResult,
+  iGetParams,
+  retError,
+  print_info
+} from "../utils";
+import { Service } from "../services/service";
 
 export class Controller<T> {
-  protected srv: DmlService<T>;
-  constructor(expApp: express.Application, srv: DmlService<T>, entityName: string) {
+  private srv: Service<T>;
+  constructor(expApp: express.Application, routeName: string, srv: Service<T>) {
     this.srv = srv;
-    this.mapRoutesToEntity(entityName, expApp);
+    this.mapRoutesToEntity(routeName, expApp);
   }
 
-  protected runDml(req: Request, res: Response, crudType: lstCRUD) {
+  private runDml(req: Request, res: Response, crudType: lstCRUD) {
     let result: iExecResult = {};
     let resEntity: T;
     result.request = <string>req.body;
@@ -39,8 +45,13 @@ export class Controller<T> {
           res.status(result.code).json(resEntity);
           break;
         case lstCRUD.Read:
-          this.srv.get(getParams)
-            .then(value => { print_info("record count", value.length); res.status(200).json(value) }, reason => print_info("users not found ERROR", reason))
+          this.srv.get(getParams).then(
+            value => {
+              print_info("record count", value.length);
+              res.status(200).json(value);
+            },
+            reason => print_info("users not found ERROR", reason)
+          );
           //res.status(200).json(this.srv.get(getParams));
           break;
       }
@@ -50,13 +61,13 @@ export class Controller<T> {
     }
   }
 
-  protected mapRoutesToEntity(entityName: string, expApp: express.Application) {
+  protected mapRoutesToEntity(routeName: string, expApp: express.Application) {
     expApp.route("/").get((req: Request, res: Response) => {
       res.status(200).send({ message: "GET request successfull!" });
     });
 
     expApp
-      .route("/" + entityName)
+      .route("/" + routeName)
       .get(async (req: Request, res: Response) => {
         await this.runDml(req, res, lstCRUD.Read);
       })
@@ -65,13 +76,15 @@ export class Controller<T> {
       });
 
     expApp
-      .route("/" + entityName + "/:id")
+      .route("/" + routeName + "/:id")
       .get((req: Request, res: Response) => this.runDml(req, res, lstCRUD.Read))
-      .put(async (req: Request, res: Response) =>
-        await this.runDml(req, res, lstCRUD.Update)
+      .put(
+        async (req: Request, res: Response) =>
+          await this.runDml(req, res, lstCRUD.Update)
       )
-      .delete(async (req: Request, res: Response) =>
-        await this.runDml(req, res, lstCRUD.Delete)
+      .delete(
+        async (req: Request, res: Response) =>
+          await this.runDml(req, res, lstCRUD.Delete)
       );
   }
 }

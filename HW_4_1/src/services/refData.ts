@@ -1,13 +1,13 @@
-import { iGetParams, iExecResult, print_info } from "../utils";
-import App from "../app";
-import { DatabaseProvider } from "../database/index";
+import { iGetParams, iExecResult } from "../utils";
 import { TUser } from "../entity/User";
-import { TDimension } from "../entity/Dimension";
 import { Repository } from "typeorm";
+import { TDimension } from "../entity/Dimension";
+import { Service } from "./service";
 
-
-export abstract class DmlService<T> {
-  protected dbRepository: Repository<TUser>;
+export class RefData<T extends TDimension> extends Service<T> {
+  public inMemory: boolean;
+  public dbRepository: Repository<T>;
+  private entity: any;
 
   public async get(getParams: iGetParams): Promise<T[]> {
     let res: T[] = [];
@@ -19,9 +19,8 @@ export abstract class DmlService<T> {
     if (getParams.filter) isFilter = true;
     else isFilter = false;
 
-    if (this.srvdb.connectionStatus.code === 200) {
-      let q = this.srvdb.connection
-        .getRepository(TUser)
+    if (!this.inMemory) {
+      let q = this.dbRepository
         .createQueryBuilder("u")
         .select(" * ")
         .orderBy("name");
@@ -36,32 +35,28 @@ export abstract class DmlService<T> {
   }
 
   public merge(getParams: iGetParams): iExecResult {
-    let entity: TUser = new TUser;
-    let res: iExecResult = entity.assign(getParams.entity);
+    let res: iExecResult = this.entity.assign(getParams.entity);
     if (res.code === 200) {
-      if (this.srvdb.connectionStatus.code === 200) {
-        this.srvdb.connection.getRepository(TUser).save(entity);
+      if (!this.inMemory) {
+        this.dbRepository.save(this.entity);
       }
-    };
+    }
     return res;
   }
 
   public delete(id: string) {
-    if (this.srvdb.connectionStatus.code === 200) {
-      this.srvdb.connection
-        .getRepository(TUser)
+    if (!this.inMemory) {
+      this.dbRepository
         .createQueryBuilder()
-        .update(TUser)
+        .update(typeof(this.entity))
         .set({ is_deleted: false })
         .where("id = :id", { id: id })
         .execute();
     }
   }
 
-  public srvdb: DatabaseProvider;
-  constructor(main: App) {
-    this.srvdb = main.db;
-    //this.dbRepository = this.srvdb.connection.getRepository(TUser);
-  };
-
+  constructor(entity: T) {
+    super();
+    this.entity = entity;
+  }
 }

@@ -11,7 +11,7 @@ myApp.serverStart();
 
 describe("Connect to DB and add New user", () => {
   it("db.connection.connect should", done => {
-    expect(myApp.db.connectionStatus.code).to.equal(200);
+    expect(myApp.db.connected).true;
   });
 
 });

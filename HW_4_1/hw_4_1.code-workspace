@@ -5,6 +5,10 @@
 		}
 	],
 	"settings": {
-		"workbench.colorTheme": "Default Dark+"
+		"workbench.colorTheme": "Default Dark+",
+		"files.exclude": {
+			"**/dist/*/**": true,
+			"**/node_modules/*/**": true
+		}
 	}
 }

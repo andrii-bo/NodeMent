@@ -1,9 +1,9 @@
 import { Connection, createConnection } from "typeorm";
-import { iExecResult, retResult, retError } from "../utils";
 
 export class DatabaseProvider {
   public connection: Connection;
-  public connectionStatus: iExecResult;
+  public connectionStatus: string;
+  public connected: boolean = false;
   public connectionName: string;
 
   constructor(connectionName: string) {
@@ -14,11 +14,13 @@ export class DatabaseProvider {
     if (!this.connection) {
       await createConnection(this.connectionName)
         .then(connection => {
+          this.connected = true;
           this.connection = connection;
-          this.connectionStatus = retResult(this.connection);
+          this.connectionStatus = "connected";
         })
         .catch(error => {
-          this.connectionStatus = retError(502, error);
+          this.connected = false;
+          this.connectionStatus = error.message;
           console.log(error.stack);
         });
     }

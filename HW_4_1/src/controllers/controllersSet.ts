@@ -1,14 +1,20 @@
-import { UserSrv } from "../services/UserSrv";
+import { RefData } from "../services/refData";
 import App from "../app";
 import { TUser } from "../entity/User";
-import { TGroup } from "../entity/Group";
-import { TUserGroup } from "../entity/UserGroup";
 import { Controller } from "./controller";
+import { Connection } from "typeorm";
 
 export class ControllersSet {
   protected controllers: any[] = [];
 
   constructor(main: App) {
-    this.controllers.push(new Controller<TUser>(main.expApp, new UserSrv(main), "user"));
+    let srv = new RefData<TUser>(new TUser());
+    this.controllers.push(new Controller<TUser>(main.expApp, "user", srv));
+  }
+
+  public setRepo(connection: Connection) {
+    for (var controller of this.controllers) {
+      controller.srv.dbRepository = connection.getRepository(TUser);
+    }
   }
 }

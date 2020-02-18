@@ -16,12 +16,11 @@ export default class App {
     await this.db
       .connect()
       .then(() => {
-        if (this.db.connectionStatus.code === 200) {
+        if (this.db.connected) {
+          this.controllersSet.setRepo(this.db.connection);
           msg = "Database connected, server listening.  Press CTRL-C to stop\n";
         } else {
-          msg =
-            "ERROR  Can't connect to database " +
-            this.db.connectionStatus.message;
+          msg = "ERROR  Can't connect to database " + this.db.connectionStatus;
         }
       })
       .catch(err => {
