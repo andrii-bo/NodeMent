@@ -9,5 +9,6 @@
         "entities": [
             "src/entity/**/*.ts"            
         ],
-        "autoSchemaSync": true
+        "logging": ["query", "error"],
+        "logger": "file"
     }

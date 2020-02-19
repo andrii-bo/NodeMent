@@ -1,0 +1,22 @@
+[2020-02-19T15:20:42.383Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["648a3620-532b-11ea-8eea-b130ccbb80b7"]
+[2020-02-19T15:20:42.400Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = true WHERE "id" = 648a3620-532b-11ea-8eea-b130ccbb80b7
+[2020-02-19T15:20:42.481Z][QUERY]: START TRANSACTION
+[2020-02-19T15:20:42.534Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["648a3620-532b-11ea-8eea-b130ccbb80b7","user8@mail.com",0,"123458",25]
+[2020-02-19T15:20:42.544Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = true WHERE "id" = 648a3620-532b-11ea-8eea-b130ccbb80b7
+[2020-02-19T15:20:42.592Z][FAILED QUERY]: UPDATE "hw_user" SET "is_deleted" = true WHERE "id" = 648a3620-532b-11ea-8eea-b130ccbb80b7
+[2020-02-19T15:20:42.592Z][QUERY ERROR]: error: syntax error at or near "a3620"
+[2020-02-19T15:20:42.663Z][QUERY]: COMMIT
+[2020-02-19T15:21:24.890Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["7de091f0-532b-11ea-acec-090a9dc4c06b"]
+[2020-02-19T15:21:24.906Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = true WHERE "id" = '7de091f0-532b-11ea-acec-090a9dc4c06b'
+[2020-02-19T15:21:24.982Z][QUERY]: START TRANSACTION
+[2020-02-19T15:21:25.034Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["7de091f0-532b-11ea-acec-090a9dc4c06b","user5@mail.com",0,"123455",25]
+[2020-02-19T15:21:25.044Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = true WHERE "id" = '7de091f0-532b-11ea-acec-090a9dc4c06b'
+[2020-02-19T15:21:25.122Z][QUERY]: COMMIT
+[2020-02-19T15:23:25.115Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
+[2020-02-19T15:32:00.761Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["f8e27ac0-532c-11ea-bf19-cf8e9eb23b66"]
+[2020-02-19T15:32:00.779Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = true WHERE "id" = 'f8e27ac0-532c-11ea-bf19-cf8e9eb23b66'
+[2020-02-19T15:32:00.870Z][QUERY]: START TRANSACTION
+[2020-02-19T15:32:00.932Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["f8e27ac0-532c-11ea-bf19-cf8e9eb23b66","user9@mail.com",0,"123459",25]
+[2020-02-19T15:32:00.934Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = true WHERE "id" = 'f8e27ac0-532c-11ea-bf19-cf8e9eb23b66'
+[2020-02-19T15:32:01.046Z][QUERY]: COMMIT
+[2020-02-19T15:34:00.995Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]

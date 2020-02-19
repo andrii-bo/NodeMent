@@ -47,17 +47,15 @@ export class RefData<T extends TDimension> extends Service<T> {
 
   public delete(id: string) {
     if (!this.inMemory) {
+      let l_true: boolean = true;
       const q = this.dbRepository
         .createQueryBuilder()
-        .update(TUser, { is_deleted: true })
-        .where("id = :id", { id: id });
-
-      const str = q.getQueryAndParameters();
-      q.execute();
-      print_info("QUERY delete", str);
-
-      //this.connection.query("update hw_user set is_deleted=true where id= $1 ", [id]);
-
+        .update()
+        .set({ is_deleted: () => "true" })
+        .where("id = '" + id + "'")
+        .printSql()
+        .execute()      
+        .then(value => print_info("QUERY delete", value));
     }
   }
 
