@@ -1,14 +1,17 @@
     {
         "name": "postgree_main",
         "type": "postgres",
-        "host": "balarama.db.elephantsql.com",
+        "host": "ec2-54-247-125-38.eu-west-1.compute.amazonaws.com",
         "port": 5432,
-        "username": "zicztuyh",
-        "password": "1O7JGw1E2NFAoUjbeAQcValRGTiQv6by",
-        "database": "zicztuyh",
+        "username": "xsfrakgdrkgjon",
+        "password": "628be36371523f67e3f5939c0ac128377cdeee01a9475db55d0b02b34c52bbd2",
+        "database": "d1g8ak4eagbilo",
         "entities": [
             "src/entity/**/*.ts"            
         ],
         "logging": ["query", "error"],
-        "logger": "file"
+        "logger": "file",
+        "ssl": {
+            "rejectUnauthorized": false
+          }
     }

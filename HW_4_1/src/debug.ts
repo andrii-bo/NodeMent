@@ -27,24 +27,21 @@ function del_user_http(server: express.Application, id: string) {
   let chr = chai.request(server);
   return chr
     .delete("/user/" + id)
-    .then(value => print_info("RESPONSE delete /user/" + id, value.body))
+    .send("succesfully " + id)
+    .then(value => print_info("delete /user/" + id, value.body))
     .catch(err => print_info("delete /user/" + id, err.message))
 };
 
 async function get_users_with_params_http(server: express.Application) {
   console.log("2:get_users_with_params_http");
   let chr = chai.request(server);
-  try {
-    const value = await chr
-      .get('/user')
-      .query("filter=user3@mail.com&limit=1");
-    print_info("RESPONSE users with filters", value.body);
-    return value;
-  }
-  catch (err) {
-    print_info("ERROR users with filters", err.message);
-    return err;
-  }
+  return await chr
+    .get('/user')
+    .query("filter=user3@mail.com&limit=1")
+    .send("succesfully")
+    .then(value => print_info("RESPONSE users with filters/", value.body))
+    .catch(err => print_info("ERROR users with filters", err.message));
+
 };
 
 async function run_steps() {
@@ -68,7 +65,6 @@ async function run_steps() {
     print_info("delete id= ", value);
     delete_id = value;
   });
-  await del_user_http(server, delete_id);
 
   /*
     user = {
@@ -79,6 +75,7 @@ async function run_steps() {
     await add_user_http(server, user);
   */
   await get_users_with_params_http(server);
+  await del_user_http(server, delete_id);
   console.log("END:");
 };
 

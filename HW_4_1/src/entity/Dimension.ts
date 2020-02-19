@@ -1,5 +1,5 @@
 import Joi from "@hapi/joi";
-import { Column, PrimaryColumn, BaseEntity,Repository } from "typeorm";
+import { Column, PrimaryColumn, BaseEntity } from "typeorm";
 import { iExecResult, retResult, print_info, retError } from "../utils";
 import uuid = require("uuid");
 
@@ -14,13 +14,13 @@ export class TDimension extends BaseEntity {
     public description: string;
 
     @Column()
-    public is_deleted: boolean;
+    public is_deleted: number;
 
     protected schema: Joi.ObjectSchema;
 
     public assign(attrs: any): iExecResult {
 
-        if (!attrs.is_deleted) attrs.is_deleted = false;
+        if (!attrs.is_deleted) attrs.is_deleted = 0;
         if (!attrs.id) attrs.id = uuid.v1();
 
         let validateRes: Joi.ValidationResult = this.schema.validate(attrs);
@@ -40,5 +40,5 @@ export class TDimension extends BaseEntity {
         this.description = attrs.description;
     };
 
-    
+
 }

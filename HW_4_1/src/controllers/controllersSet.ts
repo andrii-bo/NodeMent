@@ -2,7 +2,7 @@ import { RefData } from "../services/refData";
 import App from "../app";
 import { TUser } from "../entity/User";
 import { Controller } from "./controller";
-import { Connection } from "typeorm";
+import { Connection,Repository } from "typeorm";
 
 export class ControllersSet {
   protected controllers: any[] = [];

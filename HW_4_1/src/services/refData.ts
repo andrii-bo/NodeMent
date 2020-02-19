@@ -1,12 +1,11 @@
 import { iGetParams, iExecResult, print_info } from "../utils";
 import { TDimension } from "../entity/Dimension";
 import { Service } from "./service";
-import { TUser } from "../entity/User";
 import { Connection, Repository } from "typeorm";
 
 export class RefData<T extends TDimension> extends Service<T> {
   public inMemory: boolean;
-  public dbRepository: Repository<TUser>;
+  public dbRepository: Repository<TDimension>;
   public connection: Connection;
   private entity: any;
 
@@ -14,13 +13,13 @@ export class RefData<T extends TDimension> extends Service<T> {
     let res: T[] = [];
     let isLimit: boolean = false;
     let isFilter: boolean = false;
-
     if (getParams.limit) isLimit = true;
     else isLimit = false;
     if (getParams.filter) isFilter = true;
     else isFilter = false;
 
     if (!this.inMemory) {
+      console.log(6);
       let q = this.dbRepository
         .createQueryBuilder("u")
         .select(" * ")
@@ -28,9 +27,11 @@ export class RefData<T extends TDimension> extends Service<T> {
       if (isFilter) q = q.andWhere(" name like '%' || :name || '%'  ");
       if (isLimit) q = q.limit(getParams.limit);
       q.setParameters({ name: getParams.filter });
-      //      let str = q.getQueryAndParameters;
-      //      print_info("QUERY", str);
+      let str = q.getQueryAndParameters();
+      print_info("QUERY", str);
+      console.log(7);
       res = await q.getRawMany();
+      console.log(8);
     }
     return res;
   }
@@ -45,17 +46,19 @@ export class RefData<T extends TDimension> extends Service<T> {
     return res;
   }
 
-  public delete(id: string) {
+  public async delete(id: string) {
     if (!this.inMemory) {
-      let l_true: boolean = true;
-      const q = this.dbRepository
+      return new Promise(resolve =>  resolve());
+      return this.dbRepository
         .createQueryBuilder()
         .update()
-        .set({ is_deleted: () => "true" })
-        .where("id = '" + id + "'")
-        .printSql()
-        .execute()      
-        .then(value => print_info("QUERY delete", value));
+        .set({ is_deleted: 1 })
+        .where("id = :id", { "id": id })
+        .execute();
+        /*
+        .then((value) => (print_info("result delete", value)))
+        .catch((value) => (print_info("error delete", value)))
+        */
     }
   }
 
@@ -64,3 +67,4 @@ export class RefData<T extends TDimension> extends Service<T> {
     this.entity = entity;
   }
 }
+

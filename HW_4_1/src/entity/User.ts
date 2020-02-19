@@ -1,7 +1,6 @@
 import Joi from "@hapi/joi";
 import { Column, Entity } from "typeorm";
 import { TDimension } from "./Dimension";
-import { iExecResult, print_info, retError, retResult } from "../utils";
 
 @Entity("hw_user")
 export class TUser extends TDimension {
@@ -26,7 +25,10 @@ export class TUser extends TDimension {
       .min(4)
       .max(130)
       .required(),
-    is_deleted: Joi.bool().required()
+    is_deleted: Joi.number()
+      .integer()
+      .min(0)
+      .max(1)
   });
 
   protected serialize(attrs: any): void {
