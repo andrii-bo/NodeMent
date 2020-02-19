@@ -1,19 +1,34 @@
 import App from "../src/app";
-import express from "express";
+import express, { response } from "express";
 import chai from "chai";
 import chaiHttp from "chai-http";
 import { print_info } from "./utils";
 
 
-function add_user_http(server: express.Application, user: any) {
+function add_user_http(server: express.Application, user: any): any {
 
   console.log("1:add_rndm_user_http");
   let chr = chai.request(server);
   return chr
     .post('/user')
     .send(user)
-    .then(value => print_info("RESPONSE post /user", value.body))
+    .then(value => {
+      print_info("RESPONSE post /user", value.body)
+      return value.body.id;
+    }
+    )
     .catch(err => print_info("ERROR post /user", err.message))
+
+};
+
+function del_user_http(server: express.Application, id: string) {
+
+  console.log("3:del_user_http");
+  let chr = chai.request(server);
+  return chr
+    .delete("/user/" + id)
+    .then(value => print_info("RESPONSE delete /user/" + id, value.body))
+    .catch(err => print_info("delete /user/" + id, err.message))
 };
 
 async function get_users_with_params_http(server: express.Application) {
@@ -47,15 +62,22 @@ async function run_steps() {
     password: "12345" + rnd,
     age: 25
   };
-  await add_user_http(server, user);
-/*
-  user = {
-    login: "user3@mail.com",
-    password: "12345" + rnd,
-    age: 25
-  };
-  await add_user_http(server, user);
-*/
+
+  let delete_id: string;
+  await add_user_http(server, user).then((value) => {
+    print_info("delete id= ", value);
+    delete_id = value;
+  });
+  await del_user_http(server, delete_id);
+
+  /*
+    user = {
+      login: "user3@mail.com",
+      password: "12345" + rnd,
+      age: 25
+    };
+    await add_user_http(server, user);
+  */
   await get_users_with_params_http(server);
   console.log("END:");
 };

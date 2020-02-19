@@ -1,12 +1,13 @@
-import { iGetParams, iExecResult } from "../utils";
-import { TUser } from "../entity/User";
-import { Repository } from "typeorm";
+import { iGetParams, iExecResult, print_info } from "../utils";
 import { TDimension } from "../entity/Dimension";
 import { Service } from "./service";
+import { TUser } from "../entity/User";
+import { Connection, Repository } from "typeorm";
 
 export class RefData<T extends TDimension> extends Service<T> {
   public inMemory: boolean;
-  public dbRepository: Repository<T>;
+  public dbRepository: Repository<TUser>;
+  public connection: Connection;
   private entity: any;
 
   public async get(getParams: iGetParams): Promise<T[]> {
@@ -46,12 +47,17 @@ export class RefData<T extends TDimension> extends Service<T> {
 
   public delete(id: string) {
     if (!this.inMemory) {
-      this.dbRepository
+      const q = this.dbRepository
         .createQueryBuilder()
-        .update(typeof(this.entity))
-        .set({ is_deleted: false })
-        .where("id = :id", { id: id })
-        .execute();
+        .update(TUser, { is_deleted: true })
+        .where("id = :id", { id: id });
+
+      const str = q.getQueryAndParameters();
+      q.execute();
+      print_info("QUERY delete", str);
+
+      //this.connection.query("update hw_user set is_deleted=true where id= $1 ", [id]);
+
     }
   }
 

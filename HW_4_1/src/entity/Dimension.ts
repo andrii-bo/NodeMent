@@ -1,5 +1,5 @@
 import Joi from "@hapi/joi";
-import { Column, PrimaryColumn, BaseEntity } from "typeorm";
+import { Column, PrimaryColumn, BaseEntity,Repository } from "typeorm";
 import { iExecResult, retResult, print_info, retError } from "../utils";
 import uuid = require("uuid");
 
@@ -40,4 +40,5 @@ export class TDimension extends BaseEntity {
         this.description = attrs.description;
     };
 
+    
 }

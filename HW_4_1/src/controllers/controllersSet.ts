@@ -14,6 +14,7 @@ export class ControllersSet {
 
   public setRepo(connection: Connection) {
     for (var controller of this.controllers) {
+      controller.srv.connection = connection;
       controller.srv.dbRepository = connection.getRepository(TUser);
     }
   }
