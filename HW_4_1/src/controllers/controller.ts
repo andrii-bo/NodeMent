@@ -9,52 +9,55 @@ import {
 } from "../utils";
 import { Service } from "../services/service";
 
-export class Controller<T> {
-  private srv: Service<T>;
-  constructor(expApp: express.Application, routeName: string, srv: Service<T>) {
+export class Controller {
+  private srv: Service;
+  constructor(expApp: express.Application, routeName: string, srv: Service) {
     this.srv = srv;
     this.mapRoutesToEntity(routeName, expApp);
   }
 
-  private runDml(req: Request, res: Response, crudType: lstCRUD) {
-    let result: iExecResult = {};
-    let resEntity: T;
-    result.request = <string>req.body;
+  private async runDml(req: Request, res: Response, crudType: lstCRUD) {
+    let result: iExecResult;
+    //result.request = <string>req.body;
     try {
       let getParams: iGetParams = {};
       getParams.id = req.params["id"];
       getParams.filter = req.query["filter"];
       getParams.limit = req.query["limit"];
-      getParams.entity = <T>req.body;
+      getParams.entity = req.body;
       getParams.crudOp = crudType;
       print_info("PARAMS", getParams);
 
       switch (crudType) {
         case lstCRUD.Create:
           result = this.srv.merge(getParams);
-          resEntity = result.result;
-          res.status(result.code).json(resEntity);
           break;
         case lstCRUD.Delete:
-          this.srv.delete(getParams.id);
-          res.status(200);
+          this.srv
+            .delete(getParams.id)
+            .then(value => (result = value))
+            .catch(err => (result = retError(400, err)));
           break;
         case lstCRUD.Update:
           result = this.srv.merge(getParams);
-          resEntity = result.result;
-          res.status(result.code).json(resEntity);
           break;
         case lstCRUD.Read:
-          this.srv.get(getParams).then(
+          console.log(1);
+           this.srv.get(getParams).then(
             value => {
-              print_info("record count", value.length);
-              res.status(200).json(value);
+              console.log(2);              
+              print_info("record count", result.result.length);
+              result = value;
             },
-            reason => print_info("users not found ERROR", reason)
+            reason => {
+              console.log(3);                            
+              print_info("users not found ERROR", reason);
+              result = retError(500, reason, req.body);
+            }
           );
-          //res.status(200).json(this.srv.get(getParams));
           break;
       }
+      res.status(result.code).json(result.result);
     } catch (error) {
       result = retError(error, 500, req.body);
       res.status(result.code).json(result);

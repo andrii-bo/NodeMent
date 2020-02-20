@@ -1,25 +1,30 @@
-import { iGetParams, iExecResult, print_info } from "../utils";
+import {
+  iGetParams,
+  iExecResult,
+  print_info,
+  retResult,
+  retError
+} from "../utils";
 import { TDimension } from "../entity/Dimension";
 import { Service } from "./service";
 import { Connection, Repository } from "typeorm";
 
-export class RefData<T extends TDimension> extends Service<T> {
+export class RefData extends Service {
   public inMemory: boolean;
   public dbRepository: Repository<TDimension>;
   public connection: Connection;
   private entity: any;
 
-  public async get(getParams: iGetParams): Promise<T[]> {
-    let res: T[] = [];
+  public async get(getParams: iGetParams): Promise<iExecResult> {
+    let res: any[];
     let isLimit: boolean = false;
     let isFilter: boolean = false;
     if (getParams.limit) isLimit = true;
     else isLimit = false;
     if (getParams.filter) isFilter = true;
     else isFilter = false;
-
+    console.log(10);
     if (!this.inMemory) {
-      console.log(6);
       let q = this.dbRepository
         .createQueryBuilder("u")
         .select(" * ")
@@ -29,11 +34,11 @@ export class RefData<T extends TDimension> extends Service<T> {
       q.setParameters({ name: getParams.filter });
       let str = q.getQueryAndParameters();
       print_info("QUERY", str);
-      console.log(7);
+      console.log(11);      
       res = await q.getRawMany();
-      console.log(8);
+      console.log(12);          
     }
-    return res;
+    return retResult(res);
   }
 
   public merge(getParams: iGetParams): iExecResult {
@@ -46,25 +51,23 @@ export class RefData<T extends TDimension> extends Service<T> {
     return res;
   }
 
-  public async delete(id: string) {
+  public async delete(id: string): Promise<iExecResult> {
+    let res: iExecResult = retResult({ id: id });
     if (!this.inMemory) {
-      return new Promise(resolve =>  resolve());
-      return this.dbRepository
+      await this.dbRepository
         .createQueryBuilder()
         .update()
         .set({ is_deleted: 1 })
-        .where("id = :id", { "id": id })
-        .execute();
-        /*
-        .then((value) => (print_info("result delete", value)))
-        .catch((value) => (print_info("error delete", value)))
-        */
+        .where("id = :id", { id: id })
+        .execute()
+        .then(value => (res = retResult(value)))
+        .catch(value => (res = retError(400, value)));
     }
+    return res;
   }
 
-  constructor(entity: T) {
+  constructor(entity: any) {
     super();
     this.entity = entity;
   }
 }
-
