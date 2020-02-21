@@ -28,7 +28,8 @@ export class TUser extends TDimension {
     is_deleted: Joi.number()
       .integer()
       .min(0)
-      .max(1)
+      .max(1),
+    description: Joi.string().allow('').optional()
   });
 
   protected serialize(attrs: any): void {

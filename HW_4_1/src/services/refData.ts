@@ -34,20 +34,27 @@ export class RefData extends Service {
       q.setParameters({ name: getParams.filter });
       let str = q.getQueryAndParameters();
       print_info("QUERY", str);
-      console.log(11);      
+      console.log(11);
       res = await q.getRawMany();
-      console.log(12);          
+      console.log(12);
     }
     return retResult(res);
   }
 
-  public merge(getParams: iGetParams): iExecResult {
+  public async merge(getParams: iGetParams): Promise<iExecResult> {
     let res: iExecResult = this.entity.assign(getParams.entity);
     if (res.code === 200) {
       if (!this.inMemory) {
-        this.dbRepository.save(this.entity);
+        await this.dbRepository.save(this.entity)
+          .then(value => (res = retResult(value.id)))
+          .catch(reason => (res = retError(400, reason)));
       }
     }
+    /*
+     .then(post => {
+            console.log("Post has been saved");
+            return postRepository.findOne(post.id); 
+    */
     return res;
   }
 

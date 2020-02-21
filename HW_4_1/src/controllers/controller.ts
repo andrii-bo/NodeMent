@@ -29,32 +29,34 @@ export class Controller {
       print_info("PARAMS", getParams);
 
       switch (crudType) {
-        case lstCRUD.Create:
-          result = this.srv.merge(getParams);
-          break;
         case lstCRUD.Delete:
-          this.srv
+          await this.srv
             .delete(getParams.id)
             .then(value => (result = value))
             .catch(err => (result = retError(400, err)));
           break;
         case lstCRUD.Update:
-          result = this.srv.merge(getParams);
+          console.log("updated id ",getParams.id);
+          await this.srv
+            .merge(getParams)
+            .then(value => (result = value))
+            .catch(err => (result = retError(400, err)));
           break;
         case lstCRUD.Read:
           console.log(1);
-           this.srv.get(getParams).then(
-            value => {
-              console.log(2);              
-              print_info("record count", result.result.length);
-              result = value;
-            },
-            reason => {
-              console.log(3);                            
-              print_info("users not found ERROR", reason);
-              result = retError(500, reason, req.body);
-            }
-          );
+          await this.srv.get(getParams)
+            .then(
+              value => {
+                console.log(2);
+                print_info("record count", value.result.length);
+                result = value;
+              },
+              reason => {
+                console.log(3);
+                print_info("users not found ERROR", reason);
+                result = retError(500, reason, req.body);
+              }
+            );
           break;
       }
       res.status(result.code).json(result.result);
@@ -75,12 +77,12 @@ export class Controller {
         await this.runDml(req, res, lstCRUD.Read);
       })
       .post(async (req: Request, res: Response) => {
-        await this.runDml(req, res, lstCRUD.Create);
+        await this.runDml(req, res, lstCRUD.Update);
       });
 
     expApp
       .route("/" + routeName + "/:id")
-      .get((req: Request, res: Response) => this.runDml(req, res, lstCRUD.Read))
+      .get(async (req: Request, res: Response) => await this.runDml(req, res, lstCRUD.Read))
       .put(
         async (req: Request, res: Response) =>
           await this.runDml(req, res, lstCRUD.Update)

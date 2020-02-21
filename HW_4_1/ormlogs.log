@@ -1,148 +1,97 @@
-[2020-02-19T23:16:52.501Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["e9a7cb50-536d-11ea-b0ce-c1f55a8d7687"]
-[2020-02-19T23:16:52.635Z][QUERY]: START TRANSACTION
-[2020-02-19T23:16:52.703Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["e9a7cb50-536d-11ea-b0ce-c1f55a8d7687","user9@mail.com",0,"123459",25]
-[2020-02-19T23:16:52.835Z][QUERY]: COMMIT
-[2020-02-19T23:16:52.938Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-19T23:16:53.149Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"e9a7cb50-536d-11ea-b0ce-c1f55a8d7687"]
-[2020-02-19T23:24:26.923Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["f882efa0-536e-11ea-8e4d-5fabacce1dda"]
-[2020-02-19T23:24:27.058Z][QUERY]: START TRANSACTION
-[2020-02-19T23:24:27.126Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["f882efa0-536e-11ea-8e4d-5fabacce1dda","user6@mail.com",0,"123456",25]
-[2020-02-19T23:24:27.254Z][QUERY]: COMMIT
-[2020-02-19T23:24:27.354Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-19T23:24:27.533Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"f882efa0-536e-11ea-8e4d-5fabacce1dda"]
-[2020-02-19T23:27:52.690Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["73285600-536f-11ea-a3c7-6b48235b388e"]
-[2020-02-19T23:27:52.825Z][QUERY]: START TRANSACTION
-[2020-02-19T23:27:52.893Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["73285600-536f-11ea-a3c7-6b48235b388e","user6@mail.com",0,"123456",25]
-[2020-02-19T23:27:53.022Z][QUERY]: COMMIT
-[2020-02-19T23:27:53.096Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-19T23:27:53.248Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"73285600-536f-11ea-a3c7-6b48235b388e"]
-[2020-02-19T23:33:49.641Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["47eb58b0-5370-11ea-8a7b-3d16368b4156"]
-[2020-02-19T23:33:49.779Z][QUERY]: START TRANSACTION
-[2020-02-19T23:33:49.848Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["47eb58b0-5370-11ea-8a7b-3d16368b4156","user6@mail.com",0,"123456",25]
-[2020-02-19T23:33:49.979Z][QUERY]: COMMIT
-[2020-02-19T23:33:50.049Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-19T23:33:50.225Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"47eb58b0-5370-11ea-8a7b-3d16368b4156"]
-[2020-02-19T23:37:10.181Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["bf730450-5370-11ea-bc78-83dcb5740b3f"]
-[2020-02-19T23:37:10.321Z][QUERY]: START TRANSACTION
-[2020-02-19T23:37:10.397Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["bf730450-5370-11ea-bc78-83dcb5740b3f","user3@mail.com",0,"123453",25]
-[2020-02-19T23:37:10.532Z][QUERY]: COMMIT
-[2020-02-19T23:37:10.606Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-19T23:37:10.785Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"bf730450-5370-11ea-bc78-83dcb5740b3f"]
-[2020-02-19T23:38:01.120Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["ddcfb100-5370-11ea-8c89-99e295ede9fd"]
-[2020-02-19T23:38:01.253Z][QUERY]: START TRANSACTION
-[2020-02-19T23:38:01.321Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["ddcfb100-5370-11ea-8c89-99e295ede9fd","user6@mail.com",0,"123456",25]
-[2020-02-19T23:38:01.450Z][QUERY]: COMMIT
-[2020-02-19T23:38:01.543Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-19T23:38:01.706Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"ddcfb100-5370-11ea-8c89-99e295ede9fd"]
-[2020-02-19T23:39:03.607Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["030dd730-5371-11ea-90d1-5bcf6c14cbf3"]
-[2020-02-19T23:39:03.740Z][QUERY]: START TRANSACTION
-[2020-02-19T23:39:03.807Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["030dd730-5371-11ea-90d1-5bcf6c14cbf3","user2@mail.com",0,"123452",25]
-[2020-02-19T23:39:03.936Z][QUERY]: COMMIT
-[2020-02-19T23:39:04.039Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-19T23:41:13.656Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["5091e550-5371-11ea-9924-339628a2e63e"]
-[2020-02-19T23:41:13.791Z][QUERY]: START TRANSACTION
-[2020-02-19T23:41:13.868Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["5091e550-5371-11ea-9924-339628a2e63e","user7@mail.com",0,"123457",25]
-[2020-02-19T23:41:13.997Z][QUERY]: COMMIT
-[2020-02-19T23:41:14.071Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-19T23:41:14.267Z][QUERY]: SELECT  *  FROM "hw_user" "u" ORDER BY name ASC
-[2020-02-19T23:42:16.216Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["75dc1970-5371-11ea-881d-6fb34307b29b"]
-[2020-02-19T23:42:16.353Z][QUERY]: START TRANSACTION
-[2020-02-19T23:42:16.431Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["75dc1970-5371-11ea-881d-6fb34307b29b","user5@mail.com",0,"123455",25]
-[2020-02-19T23:42:16.564Z][QUERY]: COMMIT
-[2020-02-19T23:42:16.642Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-19T23:42:16.819Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"75dc1970-5371-11ea-881d-6fb34307b29b"]
-[2020-02-19T23:43:16.952Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["9a0f8660-5371-11ea-a9dd-edb7d455ea62"]
-[2020-02-19T23:43:17.087Z][QUERY]: START TRANSACTION
-[2020-02-19T23:43:17.155Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["9a0f8660-5371-11ea-a9dd-edb7d455ea62","user6@mail.com",0,"123456",25]
-[2020-02-19T23:43:17.284Z][QUERY]: COMMIT
-[2020-02-19T23:43:17.376Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-19T23:43:17.591Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"9a0f8660-5371-11ea-a9dd-edb7d455ea62"]
-[2020-02-19T23:44:11.959Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["bad802f0-5371-11ea-9bc6-5bbc8dd26b5c"]
-[2020-02-19T23:44:12.096Z][QUERY]: START TRANSACTION
-[2020-02-19T23:44:12.171Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["bad802f0-5371-11ea-9bc6-5bbc8dd26b5c","user1@mail.com",0,"123451",25]
-[2020-02-19T23:44:12.303Z][QUERY]: COMMIT
-[2020-02-19T23:44:12.388Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-19T23:44:12.586Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"bad802f0-5371-11ea-9bc6-5bbc8dd26b5c"]
-[2020-02-19T23:45:53.205Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["f7318910-5371-11ea-b021-b18b3369784d"]
-[2020-02-19T23:45:53.339Z][QUERY]: START TRANSACTION
-[2020-02-19T23:45:53.406Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["f7318910-5371-11ea-b021-b18b3369784d","user6@mail.com",0,"123456",25]
-[2020-02-19T23:45:53.536Z][QUERY]: COMMIT
-[2020-02-19T23:45:53.626Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-19T23:45:53.818Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"f7318910-5371-11ea-b021-b18b3369784d"]
-[2020-02-19T23:46:46.988Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["1740eed0-5372-11ea-9b44-7f3b876a8d0a"]
-[2020-02-19T23:46:47.127Z][QUERY]: START TRANSACTION
-[2020-02-19T23:46:47.197Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["1740eed0-5372-11ea-9b44-7f3b876a8d0a","user0@mail.com",0,"123450",25]
-[2020-02-19T23:46:47.333Z][QUERY]: COMMIT
-[2020-02-19T23:46:47.426Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-19T23:46:47.616Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"1740eed0-5372-11ea-9b44-7f3b876a8d0a"]
-[2020-02-19T23:48:15.058Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["4bbe95e0-5372-11ea-b621-d38302e09758"]
-[2020-02-19T23:48:15.191Z][QUERY]: START TRANSACTION
-[2020-02-19T23:48:15.265Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["4bbe95e0-5372-11ea-b621-d38302e09758","user2@mail.com",0,"123452",25]
-[2020-02-19T23:48:15.391Z][QUERY]: COMMIT
-[2020-02-19T23:48:15.489Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-19T23:48:15.659Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"4bbe95e0-5372-11ea-b621-d38302e09758"]
-[2020-02-19T23:49:42.855Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["80135830-5372-11ea-a56c-51d52530956a"]
-[2020-02-19T23:49:42.989Z][QUERY]: START TRANSACTION
-[2020-02-19T23:49:43.063Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["80135830-5372-11ea-a56c-51d52530956a","user6@mail.com",0,"123456",25]
-[2020-02-19T23:49:43.195Z][QUERY]: COMMIT
-[2020-02-19T23:49:43.286Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-19T23:53:07.728Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["fa30f0f0-5372-11ea-8f17-a762549de516"]
-[2020-02-19T23:53:07.861Z][QUERY]: START TRANSACTION
-[2020-02-19T23:53:07.929Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["fa30f0f0-5372-11ea-8f17-a762549de516","user8@mail.com",0,"123458",25]
-[2020-02-19T23:53:08.058Z][QUERY]: COMMIT
-[2020-02-19T23:53:08.148Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-20T10:42:25.923Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["af168070-53cd-11ea-a511-ed388932b2c0"]
-[2020-02-20T10:42:26.019Z][QUERY]: START TRANSACTION
-[2020-02-20T10:42:26.080Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["af168070-53cd-11ea-a511-ed388932b2c0","user5@mail.com",0,"123455",25]
-[2020-02-20T10:42:26.178Z][QUERY]: COMMIT
-[2020-02-20T10:42:26.240Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-20T12:34:05.388Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["4847e310-53dd-11ea-9453-d921c251f483"]
-[2020-02-20T12:34:05.490Z][QUERY]: START TRANSACTION
-[2020-02-20T12:34:05.542Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["4847e310-53dd-11ea-9453-d921c251f483","user1@mail.com",0,"123451",25]
-[2020-02-20T12:34:05.635Z][QUERY]: COMMIT
-[2020-02-20T12:34:05.701Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-20T12:36:30.642Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["9edb4730-53dd-11ea-aa17-11cc40f5d64e"]
-[2020-02-20T12:36:30.744Z][QUERY]: START TRANSACTION
-[2020-02-20T12:36:30.798Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["9edb4730-53dd-11ea-aa17-11cc40f5d64e","user5@mail.com",0,"123455",25]
-[2020-02-20T12:36:30.899Z][QUERY]: COMMIT
-[2020-02-20T12:36:30.954Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-20T12:38:17.292Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["de6d8a20-53dd-11ea-accb-851ad42e501e"]
-[2020-02-20T12:38:17.385Z][QUERY]: START TRANSACTION
-[2020-02-20T12:38:17.432Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["de6d8a20-53dd-11ea-accb-851ad42e501e","user7@mail.com",0,"123457",25]
-[2020-02-20T12:38:17.524Z][QUERY]: COMMIT
-[2020-02-20T12:38:17.583Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-20T12:38:17.713Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"de6d8a20-53dd-11ea-accb-851ad42e501e"]
-[2020-02-20T12:45:21.054Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["db01e100-53de-11ea-a6d4-c753afbbad90"]
-[2020-02-20T12:45:21.154Z][QUERY]: START TRANSACTION
-[2020-02-20T12:45:21.204Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["db01e100-53de-11ea-a6d4-c753afbbad90","user6@mail.com",0,"123456",25]
-[2020-02-20T12:45:21.299Z][QUERY]: COMMIT
-[2020-02-20T12:45:21.364Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-20T12:45:21.486Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"db01e100-53de-11ea-a6d4-c753afbbad90"]
-[2020-02-20T15:31:55.165Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["1ff52080-53f6-11ea-aa48-65423ccb220a"]
-[2020-02-20T15:31:55.271Z][QUERY]: START TRANSACTION
-[2020-02-20T15:31:55.330Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["1ff52080-53f6-11ea-aa48-65423ccb220a","user9@mail.com",0,"123459",25]
-[2020-02-20T15:31:55.427Z][QUERY]: COMMIT
-[2020-02-20T15:31:55.501Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-20T15:33:55.487Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"1ff52080-53f6-11ea-aa48-65423ccb220a"]
-[2020-02-20T15:40:58.235Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["63a88f00-53f7-11ea-98ad-bda256a71cec"]
-[2020-02-20T15:40:58.337Z][QUERY]: START TRANSACTION
-[2020-02-20T15:40:58.394Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["63a88f00-53f7-11ea-98ad-bda256a71cec","user7@mail.com",0,"123457",25]
-[2020-02-20T15:40:58.490Z][QUERY]: COMMIT
-[2020-02-20T15:40:58.576Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-20T15:42:58.553Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"63a88f00-53f7-11ea-98ad-bda256a71cec"]
-[2020-02-20T15:54:37.342Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["4be23720-53f9-11ea-adf6-05c96314715a"]
-[2020-02-20T15:54:37.435Z][QUERY]: START TRANSACTION
-[2020-02-20T15:54:37.482Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["4be23720-53f9-11ea-adf6-05c96314715a","user3@mail.com",0,"123453",25]
-[2020-02-20T15:54:37.577Z][QUERY]: COMMIT
-[2020-02-20T15:54:37.667Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-20T15:56:37.666Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"4be23720-53f9-11ea-adf6-05c96314715a"]
-[2020-02-20T16:50:57.115Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["2a62f410-5401-11ea-99cf-6f2da2312590"]
-[2020-02-20T16:50:57.229Z][QUERY]: START TRANSACTION
-[2020-02-20T16:50:57.281Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["2a62f410-5401-11ea-99cf-6f2da2312590","user8@mail.com",0,"123458",25]
-[2020-02-20T16:50:57.377Z][QUERY]: COMMIT
-[2020-02-20T16:50:57.463Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
-[2020-02-20T16:52:25.063Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["5ecec0d0-5401-11ea-8ed5-f789a004ebdb"]
-[2020-02-20T16:52:25.161Z][QUERY]: START TRANSACTION
-[2020-02-20T16:52:25.211Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["5ecec0d0-5401-11ea-8ed5-f789a004ebdb","user9@mail.com",0,"123459",25]
-[2020-02-20T16:52:25.307Z][QUERY]: COMMIT
-[2020-02-20T16:52:25.394Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
+[2020-02-20T18:05:21.355Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["8f46b290-540b-11ea-9ffa-57fe24e0591d"]
+[2020-02-20T18:05:21.540Z][QUERY]: START TRANSACTION
+[2020-02-20T18:05:21.611Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["8f46b290-540b-11ea-9ffa-57fe24e0591d","user8@mail.com",0,"123458",25]
+[2020-02-20T18:05:21.738Z][QUERY]: COMMIT
+[2020-02-20T18:05:21.862Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
+[2020-02-20T18:06:20.289Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["b266dac0-540b-11ea-bde4-e3ec348456a8"]
+[2020-02-20T18:06:20.426Z][QUERY]: START TRANSACTION
+[2020-02-20T18:06:20.494Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["b266dac0-540b-11ea-bde4-e3ec348456a8","user9@mail.com",0,"123459",25]
+[2020-02-20T18:06:20.623Z][QUERY]: COMMIT
+[2020-02-20T18:06:20.746Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
+[2020-02-20T18:06:20.922Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"b266dac0-540b-11ea-bde4-e3ec348456a8"]
+[2020-02-20T18:10:42.052Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["4e6d0610-540c-11ea-a1df-7902bae153cb"]
+[2020-02-20T18:10:42.192Z][QUERY]: START TRANSACTION
+[2020-02-20T18:10:42.269Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["4e6d0610-540c-11ea-a1df-7902bae153cb","user3@mail.com",0,"123453",25]
+[2020-02-20T18:10:42.405Z][QUERY]: COMMIT
+[2020-02-20T18:10:42.505Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
+[2020-02-20T18:10:42.736Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"4e6d0610-540c-11ea-a1df-7902bae153cb"]
+[2020-02-20T18:18:13.672Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["5b9ceb60-540d-11ea-b881-57d783ea27af"]
+[2020-02-20T18:18:13.816Z][QUERY]: START TRANSACTION
+[2020-02-20T18:18:13.888Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["5b9ceb60-540d-11ea-b881-57d783ea27af","user4@mail.com",0,"123454",25]
+[2020-02-20T18:18:14.025Z][QUERY]: COMMIT
+[2020-02-20T18:18:14.207Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
+[2020-02-20T18:18:14.377Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"5b9ceb60-540d-11ea-b881-57d783ea27af"]
+[2020-02-20T18:18:53.869Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["7392a5c0-540d-11ea-9530-67310e603b98"]
+[2020-02-20T18:18:54.009Z][QUERY]: START TRANSACTION
+[2020-02-20T18:18:54.080Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["7392a5c0-540d-11ea-9530-67310e603b98","user9@mail.com",0,"123459",25]
+[2020-02-20T18:18:54.216Z][QUERY]: COMMIT
+[2020-02-20T18:18:54.356Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
+[2020-02-20T18:18:54.507Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"7392a5c0-540d-11ea-9530-67310e603b98"]
+[2020-02-20T18:34:06.721Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["93acf610-540f-11ea-819e-cf89da0c0558"]
+[2020-02-20T18:34:06.860Z][QUERY]: START TRANSACTION
+[2020-02-20T18:34:06.931Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["93acf610-540f-11ea-819e-cf89da0c0558","user7@mail.com",0,"123457",25]
+[2020-02-20T18:34:07.065Z][QUERY]: COMMIT
+[2020-02-20T18:34:07.270Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
+[2020-02-20T18:34:07.444Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"93acf610-540f-11ea-819e-cf89da0c0558"]
+[2020-02-20T18:37:40.248Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["12f2bf90-5410-11ea-92a0-6196664eb8e8"]
+[2020-02-20T18:37:40.390Z][QUERY]: START TRANSACTION
+[2020-02-20T18:37:40.469Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["12f2bf90-5410-11ea-92a0-6196664eb8e8","user2@mail.com",0,"123452",25]
+[2020-02-20T18:37:40.611Z][QUERY]: COMMIT
+[2020-02-20T18:37:40.791Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
+[2020-02-20T18:37:40.991Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"12f2bf90-5410-11ea-92a0-6196664eb8e8"]
+[2020-02-20T18:37:41.152Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["137eabe0-5410-11ea-92a0-6196664eb8e8"]
+[2020-02-20T18:37:41.284Z][QUERY]: START TRANSACTION
+[2020-02-20T18:37:41.349Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, $3, $4, $5, $6) -- PARAMETERS: ["137eabe0-5410-11ea-92a0-6196664eb8e8","user3@mail.com","test update",0,"123456782",25]
+[2020-02-20T18:37:41.480Z][QUERY]: COMMIT
+[2020-02-20T23:51:01.574Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["d96833f0-543b-11ea-a05b-29746777d1de"]
+[2020-02-20T23:51:01.708Z][QUERY]: START TRANSACTION
+[2020-02-20T23:51:01.782Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["d96833f0-543b-11ea-a05b-29746777d1de","user1@mail.com",0,"123451",25]
+[2020-02-20T23:51:01.911Z][QUERY]: COMMIT
+[2020-02-20T23:51:01.985Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) LIMIT 1 -- PARAMETERS: ["d96833f0-543b-11ea-a05b-29746777d1de"]
+[2020-02-20T23:51:02.442Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
+[2020-02-20T23:51:02.659Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"undefined"]
+[2020-02-20T23:51:02.818Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["da296110-543b-11ea-a05b-29746777d1de"]
+[2020-02-20T23:51:02.946Z][QUERY]: START TRANSACTION
+[2020-02-20T23:51:03.012Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, $3, $4, $5, $6) -- PARAMETERS: ["da296110-543b-11ea-a05b-29746777d1de","user3@mail.com","test update",0,"123456781",25]
+[2020-02-20T23:51:03.140Z][QUERY]: COMMIT
+[2020-02-20T23:51:03.208Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) LIMIT 1 -- PARAMETERS: ["da296110-543b-11ea-a05b-29746777d1de"]
+[2020-02-20T23:52:59.615Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["1fc4e5f0-543c-11ea-89ad-2daf5de0061f"]
+[2020-02-20T23:52:59.752Z][QUERY]: START TRANSACTION
+[2020-02-20T23:52:59.829Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["1fc4e5f0-543c-11ea-89ad-2daf5de0061f","user1@mail.com",0,"123451",25]
+[2020-02-20T23:52:59.964Z][QUERY]: COMMIT
+[2020-02-20T23:53:00.152Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
+[2020-02-20T23:53:00.349Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"1fc4e5f0-543c-11ea-89ad-2daf5de0061f"]
+[2020-02-20T23:53:00.503Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["204e8850-543c-11ea-89ad-2daf5de0061f"]
+[2020-02-20T23:53:00.633Z][QUERY]: START TRANSACTION
+[2020-02-20T23:53:00.699Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, $3, $4, $5, $6) -- PARAMETERS: ["204e8850-543c-11ea-89ad-2daf5de0061f","user3@mail.com","test update",0,"123456781",25]
+[2020-02-20T23:53:00.831Z][QUERY]: COMMIT
+[2020-02-21T00:09:18.786Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["67663b00-543e-11ea-94e0-237622ac4cfb"]
+[2020-02-21T00:09:18.933Z][QUERY]: START TRANSACTION
+[2020-02-21T00:09:19.011Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["67663b00-543e-11ea-94e0-237622ac4cfb","user8@mail.com",0,"123458",25]
+[2020-02-21T00:09:19.146Z][QUERY]: COMMIT
+[2020-02-21T00:09:19.372Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
+[2020-02-21T00:09:19.535Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"67663b00-543e-11ea-94e0-237622ac4cfb"]
+[2020-02-21T00:09:19.731Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["67f8de10-543e-11ea-94e0-237622ac4cfb"]
+[2020-02-21T00:09:19.863Z][QUERY]: START TRANSACTION
+[2020-02-21T00:09:19.930Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, $3, $4, $5, $6) -- PARAMETERS: ["67f8de10-543e-11ea-94e0-237622ac4cfb","user3@mail.com","test update",0,"123456788",25]
+[2020-02-21T00:09:20.062Z][QUERY]: COMMIT
+[2020-02-21T00:10:13.919Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["8842b4c0-543e-11ea-8cf4-6156a64dff73"]
+[2020-02-21T00:10:14.057Z][QUERY]: START TRANSACTION
+[2020-02-21T00:10:14.125Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["8842b4c0-543e-11ea-8cf4-6156a64dff73","user0@mail.com",0,"123450",25]
+[2020-02-21T00:10:14.255Z][QUERY]: COMMIT
+[2020-02-21T00:10:14.349Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
+[2020-02-21T00:10:14.526Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"undefined"]
+[2020-02-21T00:10:14.683Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["88ba07a0-543e-11ea-8cf4-6156a64dff73"]
+[2020-02-21T00:10:14.810Z][QUERY]: START TRANSACTION
+[2020-02-21T00:10:14.874Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, $3, $4, $5, $6) -- PARAMETERS: ["88ba07a0-543e-11ea-8cf4-6156a64dff73","user3@mail.com","test update",0,"123456780",25]
+[2020-02-21T00:10:15.001Z][QUERY]: COMMIT
+[2020-02-21T00:15:47.950Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["4f5c8e00-543f-11ea-8e1c-7731da1dc72d"]
+[2020-02-21T00:15:48.082Z][QUERY]: START TRANSACTION
+[2020-02-21T00:15:48.149Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["4f5c8e00-543f-11ea-8e1c-7731da1dc72d","user0@mail.com",0,"123450",25]
+[2020-02-21T00:15:48.276Z][QUERY]: COMMIT
+[2020-02-21T00:15:48.403Z][QUERY]: SELECT  *  FROM "hw_user" "u" WHERE  name like '%' || $1 || '%'   ORDER BY name ASC LIMIT 1 -- PARAMETERS: ["user3@mail.com"]
+[2020-02-21T00:15:48.551Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $1 WHERE "id" = $2 -- PARAMETERS: [1,"undefined"]
+[2020-02-21T00:15:48.742Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["4fd73c40-543f-11ea-8e1c-7731da1dc72d"]
+[2020-02-21T00:15:48.868Z][QUERY]: START TRANSACTION
+[2020-02-21T00:15:48.931Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, $3, $4, $5, $6) -- PARAMETERS: ["4fd73c40-543f-11ea-8e1c-7731da1dc72d","user3@mail.com","test update",0,"123456780",25]
+[2020-02-21T00:15:49.055Z][QUERY]: COMMIT
