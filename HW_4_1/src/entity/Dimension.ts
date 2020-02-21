@@ -3,7 +3,7 @@ import { Column, PrimaryColumn, BaseEntity } from "typeorm";
 import { iExecResult, retResult, print_info, retError } from "../utils";
 import uuid = require("uuid");
 
-export class TDimension extends BaseEntity {
+export class TDimension  {
     @PrimaryColumn()
     id: string;
 
