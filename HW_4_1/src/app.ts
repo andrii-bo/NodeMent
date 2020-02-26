@@ -17,7 +17,7 @@ export default class App {
       .connect()
       .then(() => {
         if (this.db.connected) {
-          this.controllersSet.setRepo(this.db.connection);
+          this.controllersSet.setConnection(this.db.connection);
           msg = "Database connected, server listening.  Press CTRL-C to stop\n";
         } else {
           msg = "ERROR  Can't connect to database " + this.db.connectionStatus;

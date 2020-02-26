@@ -1,11 +1,15 @@
-import Joi from "@hapi/joi";
-import { Column, PrimaryColumn, BaseEntity } from "typeorm";
-import { iExecResult, retResult, print_info, retError } from "../utils";
-import uuid = require("uuid");
+import { Column, PrimaryColumn } from "typeorm";
+import { TEntity } from "./Entity";
 
-export class TDimension  {
+export class TDimension extends TEntity {
+
+    public GetAttrs(): any {
+        return { id: this.id, name: this.name };
+    }
+
+
     @PrimaryColumn()
-    id: string;
+    public id: string;
 
     @Column()
     public name: string;
@@ -15,23 +19,6 @@ export class TDimension  {
 
     @Column()
     public is_deleted: number;
-
-    protected schema: Joi.ObjectSchema;
-
-    public assign(attrs: any): iExecResult {
-
-        if (!attrs.is_deleted) attrs.is_deleted = 0;
-        if (!attrs.id) attrs.id = uuid.v1();
-
-        let validateRes: Joi.ValidationResult = this.schema.validate(attrs);
-        if (validateRes.error) {
-            print_info("validation error:" + validateRes.error.message, attrs);
-            return retError(400, validateRes.error);
-        } else {
-            this.serialize(attrs);
-            return retResult(attrs);
-        }
-    };
 
     protected serialize(attrs: any): void {
         this.id = attrs.id;

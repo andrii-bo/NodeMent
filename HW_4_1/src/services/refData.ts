@@ -7,13 +7,8 @@ import {
 } from "../utils";
 import { TDimension } from "../entity/Dimension";
 import { Service } from "./service";
-import { Connection, Repository } from "typeorm";
 
 export class RefData extends Service {
-  public inMemory: boolean;
-  public dbRepository: Repository<TDimension>;
-  public connection: Connection;
-  private entity: any;
 
   public async get(getParams: iGetParams): Promise<iExecResult> {
     let res: any[];
@@ -23,7 +18,6 @@ export class RefData extends Service {
     else isLimit = false;
     if (getParams.filter) isFilter = true;
     else isFilter = false;
-    console.log(10);
     if (!this.inMemory) {
       let q = this.dbRepository
         .createQueryBuilder("u")
@@ -34,9 +28,7 @@ export class RefData extends Service {
       q.setParameters({ name: getParams.filter });
       let str = q.getQueryAndParameters();
       print_info("QUERY", str);
-      console.log(11);
       res = await q.getRawMany();
-      console.log(12);
     }
     return retResult(res);
   }
@@ -46,15 +38,10 @@ export class RefData extends Service {
     if (res.code === 200) {
       if (!this.inMemory) {
         await this.dbRepository.save(this.entity)
-          .then(value => (res = retResult(value.id)))
+          .then(value => (res = retResult(value.GetAttrs())))
           .catch(reason => (res = retError(400, reason)));
       }
     }
-    /*
-     .then(post => {
-            console.log("Post has been saved");
-            return postRepository.findOne(post.id); 
-    */
     return res;
   }
 
@@ -73,8 +60,9 @@ export class RefData extends Service {
     return res;
   }
 
-  constructor(entity: any) {
+  constructor(classRefData: typeof TDimension) {
     super();
-    this.entity = entity;
+    this.classRefData = classRefData;
+    this.entity = new classRefData();
   }
 }

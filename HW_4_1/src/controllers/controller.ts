@@ -36,23 +36,20 @@ export class Controller {
             .catch(err => (result = retError(400, err)));
           break;
         case lstCRUD.Update:
-          console.log("updated id ",getParams.id);
+          console.log("acion id ",getParams.id);
           await this.srv
             .merge(getParams)
             .then(value => (result = value))
             .catch(err => (result = retError(400, err)));
           break;
         case lstCRUD.Read:
-          console.log(1);
           await this.srv.get(getParams)
             .then(
               value => {
-                console.log(2);
                 print_info("record count", value.result.length);
                 result = value;
               },
               reason => {
-                console.log(3);
                 print_info("users not found ERROR", reason);
                 result = retError(500, reason, req.body);
               }
