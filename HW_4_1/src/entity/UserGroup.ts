@@ -1,8 +1,16 @@
-import { Entity, PrimaryColumn } from "typeorm";
 import { TEntity } from "./Entity";
+import { iKeys } from "../utils";
+import { PrimaryColumn, Column, Entity } from "typeorm";
 
 @Entity("hw_user_group")
-export class TUserGroup extends TEntity {
+export class TTwoKeyBridge extends TEntity {
+  @PrimaryColumn()
+  public user_id: string;
+
+  @PrimaryColumn()
+  public group_id: string;
+
+  public keys: iKeys = ["user_id", "group_id"];
 
   public GetAttrs(): any {
     return { user_id: this.user_id, group_id: this.group_id };
@@ -12,12 +20,4 @@ export class TUserGroup extends TEntity {
     this.user_id = attrs.user_id;
     this.group_id = attrs.group_id;
   }
-
-  @PrimaryColumn()
-  user_id: string;
-
-  @PrimaryColumn()
-  group_id: string;
-
 }
-

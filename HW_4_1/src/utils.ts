@@ -55,3 +55,13 @@ export interface iGetParams {
   entity?: any;
   crudOp?:lstCRUD;
 }
+
+export interface iKey {
+  name: string;
+  dbName: string;
+  value?: any;
+}
+
+export interface iKeys {
+  [index: number]: string;
+}
