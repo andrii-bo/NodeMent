@@ -36,6 +36,20 @@ export class RefData extends Service {
   public async delete(id: string): Promise<iExecResult> {
     let res: iExecResult = retResult({ id: id });
     if (!this.inMemory) {
+      console.log("id=", id);
+
+      this.entity.is_deleted = 1;
+      await this.dbRepository.update(id, this.entity)
+        .then(value => (res = retResult(value)))
+        .catch(value => {
+          res = retError(400, value);
+          console.log("delete error", value);
+        }
+        );
+
+      //let pks: any = this.dbRepository.getId;
+      //console.log("IDS", pks);
+      /*
       await this.dbRepository
         .createQueryBuilder()
         .update()
@@ -44,7 +58,9 @@ export class RefData extends Service {
         .execute()
         .then(value => (res = retResult(value)))
         .catch(value => (res = retError(400, value)));
+        */
     }
+    console.log("end function delete error", res.code);
     return res;
   }
 

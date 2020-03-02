@@ -3,7 +3,6 @@ import { TEntity } from "./Entity";
 import { iKeys } from "../utils";
 
 export class TDimension extends TEntity {
-  public keys: iKeys = ["id"];
   public GetAttrs(): any {
     return { id: this.id, name: this.name };
   }

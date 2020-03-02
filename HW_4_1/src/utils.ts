@@ -3,6 +3,7 @@ export enum lstCRUD {
   Read = "READ",
   Update = "UPDATE",
   Delete = "DELETE",
+  Clear = "CLEAR"
 }
 
 export interface iExecResult {
@@ -14,30 +15,36 @@ export interface iExecResult {
 }
 
 export function retResult(
-  result?: any,  
+  result?: any,
   code: number = 200,
   req?: string,
-  message?:string
+  message?: string
 ): iExecResult {
   let lResult: iExecResult = <iExecResult>{};
   lResult.code = code;
-  lResult.message = message;  
+  lResult.message = message;
   lResult.request = req;
   lResult.result = result;
   return lResult;
 }
 
 export function print_info(
-  title: string,  
-  message?: any
+  title: string,
+  message?: any,
+  is_end: boolean = false
 ): void {
-  console.log("----------"+title+"--\\/---");      
-  console.log(message);
+  if (is_end) {
+    console.log(message);
+    console.log("----------" + title + "--/\\---");
+  } else {
+    console.log("----------" + title + "--\\/---");
+    console.log(message);
+  };
 }
 
 export function retError(
   pCode: number,
-  pErr?: any,  
+  pErr?: any,
   pReq?: string
 ): iExecResult {
   let lError: iExecResult = <iExecResult>{};
@@ -45,15 +52,16 @@ export function retError(
   lError.message = pErr.message;
   lError.stack = pErr.stack;
   lError.request = pReq;
+  lError.result = pErr;
   return lError;
 }
 
 export interface iGetParams {
-  id?:string;
+  id?: string;
   limit?: number;
   filter?: string;
   entity?: any;
-  crudOp?:lstCRUD;
+  crudOp?: lstCRUD;
 }
 
 export interface iKey {

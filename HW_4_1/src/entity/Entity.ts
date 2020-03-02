@@ -3,7 +3,6 @@ import { iExecResult, retResult, print_info, retError, iKeys } from "../utils";
 import uuid = require("uuid");
 
 export abstract class TEntity {
-  public abstract keys: iKeys;
   public is_deleted: number;
   protected schema: Joi.ObjectSchema;
 

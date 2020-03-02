@@ -9,7 +9,7 @@ export abstract class Service {
   public inMemory: boolean;
   protected entity: TEntity;
   public abstract async get(getParams: iGetParams): Promise<iExecResult>;
-  
+
   public async merge(getParams: iGetParams): Promise<iExecResult> {
     let res: iExecResult = this.entity.assign(getParams.entity);
     if (res.code === 200) {
@@ -23,9 +23,29 @@ export abstract class Service {
     return res;
   }
 
+  public async clear(): Promise<iExecResult> {
+    let res: iExecResult;
+    await this.dbRepository
+      .createQueryBuilder()
+      .delete()
+      .execute()
+      .then(() => {
+        console.log("CLEAR_then succusefull");
+        res = retResult();
+      })
+      .catch(reason => {
+        console.log("CLEAR_then unsuccusefull", reason);
+        res = retError(400, reason);
+      }
+      );
+    return res;
+  }
+
   public abstract async delete(id: string): Promise<iExecResult>;
+
   public setConnection(connection: Connection) {
     this.connection = connection;
     this.dbRepository = connection.getRepository(this.classRefData);
   }
+
 }

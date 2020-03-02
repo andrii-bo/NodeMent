@@ -10,8 +10,6 @@ export class TTwoKeyBridge extends TEntity {
   @PrimaryColumn()
   public group_id: string;
 
-  public keys: iKeys = ["user_id", "group_id"];
-
   public GetAttrs(): any {
     return { user_id: this.user_id, group_id: this.group_id };
   }
