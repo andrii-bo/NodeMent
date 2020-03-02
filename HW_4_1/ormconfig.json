@@ -9,7 +9,7 @@
         "entities": [
             "src/entity/**/*.ts"            
         ],
-        "logging": ["query", "error"],
+        "logging": "all",
         "logger": "file",
         "ssl": {
             "rejectUnauthorized": false

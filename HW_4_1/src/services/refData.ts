@@ -9,7 +9,6 @@ import { TDimension } from "../entity/Dimension";
 import { Service } from "./service";
 
 export class RefData extends Service {
-
   public async get(getParams: iGetParams): Promise<iExecResult> {
     let res: any[];
     let isLimit: boolean = false;
@@ -33,35 +32,13 @@ export class RefData extends Service {
     return retResult(res);
   }
 
-  public async delete(id: string): Promise<iExecResult> {
-    let res: iExecResult = retResult({ id: id });
-    if (!this.inMemory) {
-      console.log("id=", id);
-
-      this.entity.is_deleted = 1;
-      await this.dbRepository.update(id, this.entity)
-        .then(value => (res = retResult(value)))
-        .catch(value => {
-          res = retError(400, value);
-          console.log("delete error", value);
-        }
-        );
-
-      //let pks: any = this.dbRepository.getId;
-      //console.log("IDS", pks);
-      /*
-      await this.dbRepository
-        .createQueryBuilder()
-        .update()
-        .set({ is_deleted: 1 })
-        .where("id = :id", { id: id })
-        .execute()
-        .then(value => (res = retResult(value)))
-        .catch(value => (res = retError(400, value)));
-        */
-    }
-    console.log("end function delete error", res.code);
-    return res;
+  public async delete(id: string[]): Promise<iExecResult> {
+    let res: iExecResult;
+    await this.dbRepository
+      .update(id[1], { is_deleted: 1 })
+      .then(value => (res = retResult(value)))
+      .catch(reason => (res = retError(400, reason)));
+    return retResult(res);
   }
 
   constructor(classRefData: typeof TDimension) {

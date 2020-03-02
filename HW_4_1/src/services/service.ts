@@ -23,7 +23,7 @@ export abstract class Service {
     return res;
   }
 
-  public async clear(): Promise<iExecResult> {
+    public async clear(): Promise<iExecResult> {
     let res: iExecResult;
     await this.dbRepository
       .createQueryBuilder()

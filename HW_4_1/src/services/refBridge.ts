@@ -16,19 +16,13 @@ export class RefData extends Service {
     return retResult(res);
   }
 
-  public async delete(id: string): Promise<iExecResult> {
-    let res: iExecResult = retResult({ id: id });
-    if (!this.inMemory) {
-      await this.dbRepository
-        .createQueryBuilder()
-        .update()
-        .set({ is_deleted: 1 })
-        .where("id = :id", { id: id })
-        .execute()
-        .then(value => (res = retResult(value)))
-        .catch(value => (res = retError(400, value)));
-    }
-    return res;
+  public async delete(id: string[]): Promise<iExecResult> {
+    let res: iExecResult;
+    await this.dbRepository
+      .delete(id, { is_deleted: 1 })
+      .then(value => (res = retResult(value)))
+      .catch(reason => (res = retError(400, reason)));
+    return retResult(res);
   }
 
   constructor(classRefData: typeof TDimension) {

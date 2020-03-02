@@ -16,7 +16,11 @@ export class Controller {
     this.mapRoutesToEntity(routeName, expApp);
   }
 
-  private async runDml(req: Request, res: Response, crudType: lstCRUD): Promise<void> {
+  private async runDml(
+    req: Request,
+    res: Response,
+    crudType: lstCRUD
+  ): Promise<void> {
     let getParams: iGetParams = {};
     let dmlRes: iExecResult;
     getParams.id = req.params["id"];
@@ -40,29 +44,47 @@ export class Controller {
         dmlRes = await this.srv.get(getParams);
         break;
     }
-    if (!(dmlRes.code === 200)) print_info("ERROR dml operation", dmlRes.result);
+    if (!(dmlRes.code === 200))
+      print_info("ERROR dml operation", dmlRes.result);
+    print_info("response", dmlRes.result, true);
     res.status(dmlRes.code).json(dmlRes.result);
   }
   protected mapRoutesToEntity(routeName: string, expApp: express.Application) {
-
     expApp.route("/").get((req: Request, res: Response) => {
       res.status(200).send({ message: "GET request successfull!" });
     });
 
     expApp
       .route("/" + routeName)
-      .get(async (req: Request, res: Response) => await this.runDml(req, res, lstCRUD.Read))
-      .post(async (req: Request, res: Response) => await this.runDml(req, res, lstCRUD.Update));
+      .get(
+        async (req: Request, res: Response) =>
+          await this.runDml(req, res, lstCRUD.Read)
+      )
+      .post(
+        async (req: Request, res: Response) =>
+          await this.runDml(req, res, lstCRUD.Update)
+      );
 
     expApp
       .route("/" + routeName + "/:id")
-      .get(async (req: Request, res: Response) => await this.runDml(req, res, lstCRUD.Read))
-      .put(async (req: Request, res: Response) => await this.runDml(req, res, lstCRUD.Update))
-      .delete(async (req: Request, res: Response) => await this.runDml(req, res, lstCRUD.Delete));
+      .get(
+        async (req: Request, res: Response) =>
+          await this.runDml(req, res, lstCRUD.Read)
+      )
+      .put(
+        async (req: Request, res: Response) =>
+          await this.runDml(req, res, lstCRUD.Update)
+      )
+      .delete(
+        async (req: Request, res: Response) =>
+          await this.runDml(req, res, lstCRUD.Delete)
+      );
 
     expApp
       .route("/" + routeName)
-      .delete(async (req: Request, res: Response) => await this.runDml(req, res, lstCRUD.Clear));
-
+      .delete(
+        async (req: Request, res: Response) =>
+          await this.runDml(req, res, lstCRUD.Clear)
+      );
   }
 }
