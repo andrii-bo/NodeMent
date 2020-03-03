@@ -32,13 +32,15 @@ export class RefData extends Service {
     return retResult(res);
   }
 
-  public async delete(id: string[]): Promise<iExecResult> {
-    let res: iExecResult;
+  public async delete(ids: any): Promise<iExecResult> {
+    /*let res: iExecResult;
     await this.dbRepository
       .update(id[1], { is_deleted: 1 })
       .then(value => (res = retResult(value)))
       .catch(reason => (res = retError(400, reason)));
     return retResult(res);
+    */
+   return this.purge(ids);
   }
 
   constructor(classRefData: typeof TDimension) {

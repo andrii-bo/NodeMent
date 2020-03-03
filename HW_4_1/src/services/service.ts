@@ -23,7 +23,7 @@ export abstract class Service {
     return res;
   }
 
-    public async clear(): Promise<iExecResult> {
+  public async clear(): Promise<iExecResult> {
     let res: iExecResult;
     await this.dbRepository
       .createQueryBuilder()
@@ -36,16 +36,30 @@ export abstract class Service {
       .catch(reason => {
         console.log("CLEAR_then unsuccusefull", reason);
         res = retError(400, reason);
-      }
-      );
+      });
     return res;
   }
 
-  public abstract async delete(id: string): Promise<iExecResult>;
+  public async purge(id: any): Promise<iExecResult> {
+    let res: iExecResult;
+    await this.dbRepository
+      .delete(id)
+      .then(value => (res = retResult(value)))
+      .catch(reason => (res = retError(400, reason)));
+    return retResult(res);
+  }
+
+  public async delete(ids: any): Promise<iExecResult> {
+    let res: iExecResult;
+    await this.dbRepository
+      .update(ids, { is_deleted: 1 })
+      .then(value => (res = retResult(value)))
+      .catch(reason => (res = retError(400, reason)));
+    return retResult(res);
+  }
 
   public setConnection(connection: Connection) {
     this.connection = connection;
     this.dbRepository = connection.getRepository(this.classRefData);
   }
-
 }

@@ -30,3 +30,17 @@
 [2020-03-02T16:51:10.019Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["0489aec0-5ca6-11ea-805a-bbb2bec2cec5","user8@mail.com",0,"123458",25]
 [2020-03-02T16:51:10.114Z][QUERY]: COMMIT
 [2020-03-02T16:51:10.190Z][QUERY]: UPDATE "hw_user" SET "is_deleted" = $2 WHERE "id" IN ($1) -- PARAMETERS: ["0489aec0-5ca6-11ea-805a-bbb2bec2cec5",1]
+[2020-03-03T16:01:59.526Z][INFO]: All classes found using provided glob pattern "src/entity/**/*.ts" : "src/entity/Dimension.ts,src/entity/Entity.ts,src/entity/Group.ts,src/entity/User.ts,src/entity/UserGroup.ts"
+[2020-03-03T16:01:59.811Z][QUERY]: DELETE FROM "hw_user"
+[2020-03-03T16:01:59.958Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["50a9d1f0-5d68-11ea-9abf-0dfa9b6799fc"]
+[2020-03-03T16:02:00.057Z][QUERY]: START TRANSACTION
+[2020-03-03T16:02:00.107Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["50a9d1f0-5d68-11ea-9abf-0dfa9b6799fc","user9@mail.com",0,"123459",25]
+[2020-03-03T16:02:00.205Z][QUERY]: COMMIT
+[2020-03-03T16:02:00.268Z][QUERY]: DELETE FROM "hw_user"
+[2020-03-03T16:14:55.488Z][INFO]: All classes found using provided glob pattern "src/entity/**/*.ts" : "src/entity/Dimension.ts,src/entity/Entity.ts,src/entity/Group.ts,src/entity/User.ts,src/entity/UserGroup.ts"
+[2020-03-03T16:14:55.815Z][QUERY]: DELETE FROM "hw_user"
+[2020-03-03T16:14:55.904Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["1f29a180-5d6a-11ea-ad64-9f69b3bb9c72"]
+[2020-03-03T16:14:56.015Z][QUERY]: START TRANSACTION
+[2020-03-03T16:14:56.069Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["1f29a180-5d6a-11ea-ad64-9f69b3bb9c72","user0@mail.com",0,"123450",25]
+[2020-03-03T16:14:56.171Z][QUERY]: COMMIT
+[2020-03-03T16:14:56.249Z][QUERY]: DELETE FROM "hw_user"
