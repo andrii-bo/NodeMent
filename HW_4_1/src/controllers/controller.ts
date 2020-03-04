@@ -23,16 +23,14 @@ export class Controller {
   ): Promise<void> {
     let getParams: iGetParams = {};
     let dmlRes: iExecResult;
-    getParams.id = req.query["id"];
-    getParams.filter = req.query["filter"];
-    getParams.limit = req.query["limit"];
+    getParams.filters = req.query;
     getParams.entity = req.body;
     getParams.crudOp = crudType;
     print_info(" input params", getParams);
-    console.log("ID=", getParams.id);
+    console.log("ID=", getParams.filters.id);
     switch (crudType) {
       case lstCRUD.Delete:
-        dmlRes = await this.srv.delete(getParams.id);
+        dmlRes = await this.srv.delete(getParams);
         break;
       case lstCRUD.Clear:
         dmlRes = await this.srv.clear();

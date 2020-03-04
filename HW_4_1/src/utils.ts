@@ -57,9 +57,7 @@ export function retError(
 }
 
 export interface iGetParams {
-  id?: string;
-  limit?: number;
-  filter?: string;
+  filters?: any;
   entity?: any;
   crudOp?: lstCRUD;
 }

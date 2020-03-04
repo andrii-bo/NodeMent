@@ -44,3 +44,10 @@
 [2020-03-03T16:14:56.069Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["1f29a180-5d6a-11ea-ad64-9f69b3bb9c72","user0@mail.com",0,"123450",25]
 [2020-03-03T16:14:56.171Z][QUERY]: COMMIT
 [2020-03-03T16:14:56.249Z][QUERY]: DELETE FROM "hw_user"
+[2020-03-04T09:22:39.947Z][INFO]: All classes found using provided glob pattern "src/entity/**/*.ts" : "src/entity/Dimension.ts,src/entity/Entity.ts,src/entity/Group.ts,src/entity/User.ts,src/entity/UserGroup.ts"
+[2020-03-04T09:22:40.642Z][QUERY]: DELETE FROM "hw_user"
+[2020-03-04T09:22:40.823Z][QUERY]: SELECT "TUser"."id" AS "TUser_id", "TUser"."name" AS "TUser_name", "TUser"."description" AS "TUser_description", "TUser"."is_deleted" AS "TUser_is_deleted", "TUser"."password" AS "TUser_password", "TUser"."age" AS "TUser_age" FROM "hw_user" "TUser" WHERE "TUser"."id" IN ($1) -- PARAMETERS: ["b2513dd0-5df9-11ea-8090-0b226d2fbabd"]
+[2020-03-04T09:22:40.938Z][QUERY]: START TRANSACTION
+[2020-03-04T09:22:40.989Z][QUERY]: INSERT INTO "hw_user"("id", "name", "description", "is_deleted", "password", "age") VALUES ($1, $2, DEFAULT, $3, $4, $5) -- PARAMETERS: ["b2513dd0-5df9-11ea-8090-0b226d2fbabd","user1@mail.com",0,"123451",25]
+[2020-03-04T09:22:41.085Z][QUERY]: COMMIT
+[2020-03-04T09:22:41.147Z][QUERY]: DELETE FROM "hw_user"
