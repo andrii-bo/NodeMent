@@ -36,7 +36,7 @@
     "rimraf": "^3.0.1",
     "ts-mocha": "^6.0.0",
     "ts-node": "^8.5.4",
-    "typeorm": "^0.2.22",
+    "typeorm": "^0.2.25",
     "typescript": "^3.7.4",
     "uuid": "^3.3.3"
   }
