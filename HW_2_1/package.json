@@ -18,7 +18,7 @@
   "dependencies": {
     "@hapi/joi": "^16.1.8",
     "@types/hapi__joi": "^16.0.4",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "nodemon": "^1.18.9"
   },
   "devDependencies": {
